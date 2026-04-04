@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kraken Vault | Document Archive</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="archive.css">
+</head>
+<body>
+    <header class="kraken-header">
+        <div class="nav-group">
+            <img src="logo.png" alt="logo" class="logo">
+            <nav class="top-nav">
+                <a href="index.html" class="active">Document Archive</a>
+                <a href="ActivityLog.html">Activity Log</a>
+                <a href="UserManagement.html">User Management</a>
+            </nav>
+        </div>
+        <div class="profile-area">
+            <img src="pfp.png" alt="Profile" class="profile-icon">
+        </div>
+    </header>
+
+    <div class="app-body">
+        <aside class="sidebar">
+            <button class="new-button"><span class="plus">+</span> New</button>
+            <nav class="nav-links">
+                <a href="#" class="all-documents"><strong>All Documents</strong></a>
+                <a href="#">Financial Reports</a>
+                <a href="#">Meeting Minutes</a>
+                <a href="#">Project Proposals</a>
+                <a href="#">Official Memorandums</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="content-header">
+                <h1>All Documents</h1>
+                <form class="search-form">
+                    <input type="text" class="search-input" placeholder="Search Drive...">
+                </form>
+                <div class="view-controls">
+                    <button class="view-button">List</button>
+                    <button class="view-button">Grid</button>
+                    <button class="view-button">View Details</button>
+                </div>
+            </header>
+
+            <section class="file-section">
+                <p class="section-subtitle">Files</p>
+                <table class="file-table">
+                    <thead>
+                        <tr>
+                            <th>NAME</th>
+                            <th>CATEGORY</th>
+                            <th>LAST MODIFIED</th>
+                            <th>OWNER</th>
+                            <th style="width: 100px; text-align: center;">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="selected-row">
+                            <td data-label="Name">
+                                <div class="file-icon"></div> 
+                                Annual_Budget_2026.pdf
+                            </td>
+                            <td data-label="Category">Financial Reports</td>
+                            <td data-label="Last modified">08/04/26</td>
+                            <td data-label="Owner">Valencia</td>
+                            <td class="actions-cell" data-label="Actions">
+                                <button class="action-button view">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="Name">
+                                <div class="file-icon"></div> 
+                                Sprint_Planning_Notes.docx
+                            </td>
+                            <td data-label="Category">Meeting Minutes</td>
+                            <td data-label="Last modified">02/04/26</td>
+                            <td data-label="Owner">Astilla</td>
+                            <td class="actions-cell" data-label="Actions">
+                                <button class="action-button view">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="Name">
+                                <div class="file-icon"></div> 
+                                System_Architecture_V2.pdf
+                            </td>
+                            <td data-label="Category">Project Proposals</td>
+                            <td data-label="Last modified">28/03/26</td>
+                            <td data-label="Owner">Fabic</td>
+                            <td class="actions-cell" data-label="Actions">
+                                <button class="action-button view">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="Name">
+                                <div class="file-icon"></div> 
+                                Quarter_1_Sales.xlsx
+                            </td>
+                            <td data-label="Category">Financial Reports</td>
+                            <td data-label="Last modified">15/04/26</td>
+                            <td data-label="Owner">Simbulas</td>
+                            <td class="actions-cell" data-label="Actions">
+                                <button class="action-button view">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <aside class="preview-pane">
+            <div class="preview-header">
+                <h3>Annual_Budget_2026.pdf</h3>
+                <button class="close-preview">×</button>
+            </div>
+            <div class="preview-thumbnail">
+                <span>PDF Preview</span>
+            </div>
+            <div class="preview-details">
+                <p><strong>Category:</strong> Financial Reports</p>
+                <p><strong>Modified:</strong> 08/04/26</p>
+                <p><strong>Owner:</strong> Valencia</p>
+                <p><strong>Size:</strong> 2.4 MB</p>
+            </div>
+            <div class="preview-actions">
+                <button class="action-button delete-safe">Delete Document</button>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>

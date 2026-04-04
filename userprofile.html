@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kraken Vault | Profile</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <header class="kraken-header">
+        <div class="nav-group">
+            <img src="logo.png" alt="logo" class="logo">
+            <nav class="top-nav">
+                <a href="index.html">Document Archive</a>
+                <a href="ActivityLog.html">Activity Log</a>
+                <a href="UserManagement.html">User Management</a>
+            </nav>
+        </div>
+        <div class="profile-area">
+            <img src="pfp.png" alt="Profile" class="profile-icon">
+        </div>
+    </header>
+
+    <main class="profile-content">
+        <section class="profile-container">
+            <img src="pfp.png" alt="pfp large" class="profile-pic-large">
+            <div class="user-details">
+                <h1>Harah Castedana</h1>
+                <p><strong>Student ID:</strong> 2026-00123</p>
+                <p><strong>Email:</strong> hcastedana@usep.edu.ph</p>
+                <p><strong>Year Level:</strong> 3rd Year</p>
+                <p><strong>Course:</strong> BSIT-IS</p>
+                <p><strong>Term:</strong> 2025 - 2026</p>
+                <span class="badge">Governor</span>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Committee Members</h2>
+            <table class="file-table">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Student ID</th>
+                        <th>Email</th>
+                        <th style="width: 100px; text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Student Name">Time Edwald</td>
+                        <td data-label="Student ID">2025-0001</td>
+                        <td data-label="Email">tedwald@usep.edu.ph</td>
+                        <td class="actions-cell" data-label="Actions">
+                            <button class="action-button">•••</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="Student Name">Kylie Valence</td>
+                        <td data-label="Student ID">2025-0002</td>
+                        <td data-label="Email">kvalence@usep.edu.ph</td>
+                        <td class="actions-cell" data-label="Actions">
+                            <button class="action-button">•••</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="table-footer">
+                <button class="action-button add-committee-btn">+ Add Committee Member</button>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Recent Activity</h2>
+            <table class="file-table">
+                <thead>
+                    <tr>
+                        <th>Date and Time</th>
+                        <th>Action</th>
+                        <th>File/Item</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Date and Time">03/31/2026, 9:30AM</td>
+                        <td data-label="Action">Uploaded</td>
+                        <td data-label="File/Item"><a href="#" class="file-link">monthly_report_v1.pdf</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Date and Time">03/30/2026, 2:15PM</td>
+                        <td data-label="Action">Downloaded</td>
+                        <td data-label="File/Item"><a href="#" class="file-link">committee_minutes.docx</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

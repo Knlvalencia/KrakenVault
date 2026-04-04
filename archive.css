@@ -1,0 +1,129 @@
+/* =========================================
+   ARCHIVE.CSS - DOCUMENT ARCHIVE UNIQUE STYLES
+   ========================================= */
+
+/* Layout Structure */
+.app-body { 
+    display: flex; 
+    flex: 1; 
+    overflow: hidden; 
+    flex-direction: row; 
+    width: 100%;
+}
+
+/* Sidebar Styling */
+aside.sidebar { 
+    width: 260px; 
+    padding: 24px 16px; 
+    border-right: 1px solid #ddd; 
+    background-color: #fff; 
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
+    flex-shrink: 0; 
+}
+
+.new-button { 
+    background-color: #fff; border: 1px solid #ddd; 
+    border-radius: 8px; font-size: 15px; padding: 10px 20px; 
+    font-weight: bold; cursor: pointer; color: #444; 
+    display: flex; align-items: center; gap: 8px; 
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05); width: 100px; 
+    margin-bottom: 30px; justify-content: center; 
+}
+
+.new-button .plus { font-size: 18px; color: #555; margin-right: 4px; }
+
+.nav-links { display: flex; flex-direction: column; gap: 4px; }
+.nav-links a { 
+    text-decoration: none; color: #444; padding: 12px 16px; 
+    border-radius: 8px; font-size: 14px; display: block; position: relative; 
+}
+.nav-links a:hover { background-color: #f1f3f4; }
+.nav-links a.all-documents { background-color: #e8f0fe; color: #1a73e8; font-weight: bold; }
+
+/* Main Content Area Specifics */
+main.main-content { flex: 1; padding: 30px 40px; overflow-y: auto; background-color: #fff; }
+.content-header { 
+    display: flex; justify-content: space-between; align-items: center; 
+    margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #eee; 
+    flex-wrap: wrap; gap: 20px; 
+}
+.content-header h1 { margin: 0; font-size: 22px; font-weight: bold; color: #202124; white-space: nowrap; }
+
+/* View Controls */
+.view-controls { display: flex; gap: 8px; }
+.view-button { 
+    padding: 8px 14px; background: #fff; border: 1px solid #ddd; 
+    border-radius: 4px; cursor: pointer; color: #5f6368; font-size: 13px; 
+}
+.view-button:hover { background-color: #f8f9fa; color: #202124; }
+
+.section-subtitle { font-size: 14px; color: #5f6368; margin-bottom: 16px; margin-top: 0; }
+
+/* Preview Pane Styling */
+aside.preview-pane { 
+    width: 320px; border-left: 1px solid #ddd; background-color: #fff; 
+    display: flex; flex-direction: column; padding: 24px; 
+    overflow-y: auto; flex-shrink: 0; 
+}
+
+.preview-header { 
+    display: flex; justify-content: space-between; align-items: flex-start; 
+    margin-bottom: 16px; width: 100%; 
+}
+.preview-header h3 { margin: 0; font-size: 18px; color: #202124; word-break: break-all; }
+
+.close-preview { 
+    background: none; border: none; font-size: 20px; 
+    cursor: pointer; color: #999; padding: 0; line-height: 1; display: inline-flex; 
+}
+.close-preview:hover { color: #333; }
+
+.preview-thumbnail { 
+    height: 200px; background-color: #f1f3f4; border-radius: 8px; 
+    display: flex; align-items: center; justify-content: center; 
+    margin-bottom: 24px; color: #5f6368; font-size: 16px; border: 1px solid #e0e0e0; 
+}
+
+.preview-details { flex: 1; margin-bottom: 24px; }
+.preview-details p { margin: 0; font-size: 14px; color: #202124; border-bottom: 1px solid #eee; padding: 12px 0; }
+.preview-details p:last-child { border-bottom: none; }
+.preview-details strong { color: #000; display: inline-block; width: 80px; }
+.preview-actions { display: flex; justify-content: center; }
+
+/* =========================================
+   ARCHIVE MOBILE RESPONSIVENESS
+   ========================================= */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    aside.preview-pane { width: 250px; padding: 16px; }
+}
+
+/* Small Screens */
+@media (max-width: 900px) {
+    aside.preview-pane { display: none; }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+    .app-body { flex-direction: column; }
+    
+    aside.sidebar { 
+        width: 100%; padding: 16px; border-right: none; 
+        border-bottom: 1px solid #ddd; flex-direction: column; 
+    }
+    
+    .new-button { width: 100%; justify-content: center; margin-bottom: 16px; }
+    
+    .nav-links { 
+        flex-direction: row; overflow-x: auto; 
+        padding-bottom: 4px; scrollbar-width: none; width: 100%;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a { white-space: nowrap; padding: 8px 16px; }
+    
+    main.main-content { padding: 16px; width: 100%; }
+    .content-header h1 { font-size: 20px; }
+}
