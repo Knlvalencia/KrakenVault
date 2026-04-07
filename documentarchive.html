@@ -10,6 +10,8 @@
     <script src="archive.js"></script>
     <script src="main.js"></script>
 </head>
+
+<!-- HEADER START -->
 <body>
     <header class="kraken-header">
         <div class="nav-group">
@@ -27,7 +29,10 @@
             <img src="pfp.png" alt="Profile" class="profile-icon">
         </a>
     </header>
+    <!-- HEADER END -->
 
+
+    <!-- LEFT SIDE BAR START -->
     <div class="app-body">
         <aside class="sidebar">
             <button class="new-button"><span class="plus">+</span> New</button>
@@ -43,7 +48,9 @@
                 <a href="#">Miscellaneous</a>
             </nav>
         </aside>
+        <!-- LEFT SIDE BAR END -->
 
+        <!-- MODAL START -->
         <div id="newDocModal" class="modal-overlay">
             <div class="modal-content">
                 <div class="modal-header">
@@ -74,7 +81,9 @@
                 </form>
             </div>
         </div>
+        <!-- MODAL END -->
 
+        <!-- CENTER CONTENT (TABLE) START -->
         <main class="main-content">
             <header class="content-header">
                 <h1>All Documents</h1>
@@ -121,6 +130,9 @@
             </section>
         </main>
 
+        <!-- CENTER CONTENT (TABLE) END -->
+
+        <!-- PREVIEW PANE START -->
         <aside class="preview-pane">
             <div class="preview-header">
                 <h3>File Details</h3>
@@ -137,6 +149,7 @@
                 <button class="action-button delete-safe">Delete Document</button>
             </div>
         </aside>
+        <!-- PREVIEW PANE END -->
     </div>
 </body>
 </html>
