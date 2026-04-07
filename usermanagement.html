@@ -17,12 +17,13 @@
                 <span></span>
             </button>
             <img src="logo.png" alt="logo" class="logo">
-                <a href="DocumentArchive.html" >Document Archive</a>
+            <nav class="nav-menu">
+                <a href="DocumentArchive.html">Document Archive</a>
                 <a href="ActivityLog.html">Activity Log</a>
-                <a href="UserManagement.html"class="active">User Management</a>
+                <a href="UserManagement.html" class="active">User Management</a>
             </nav>
         </div>
-        <a href = "UserProfile.html" class="profile-area">
+        <a href="UserProfile.html" class="profile-area">
             <img src="pfp.png" alt="Profile" class="profile-icon">
         </a>
     </header>
@@ -31,9 +32,14 @@
         <div class="users-header-controls">
             <h1>User Management</h1>
             <div class="user-search-group">
-                <button class="action-button sort-btn"><span class="sort-icon">&#8593;&#8595;</span> Sort</button>
+                <button class="action-button sort-btn">
+                    <span class="sort-icon">⇅</span> Sort
+                </button>
                 <div class="search-wrapper">
-                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
                     <input type="text" class="search-input with-icon" placeholder="Search by username or id">
                 </div>
             </div>

@@ -123,6 +123,20 @@ header.kraken-header {
     font-weight: 600; 
 }
 
+.action-button.delete-safe { 
+    background-color: #fff; 
+    color: #d93025; /* Red text */
+    border: 1px solid #d93025; /* Red border */
+    width: 100%; 
+    padding: 10px; 
+    font-size: 14px; 
+    transition: background-color 0.2s;
+}
+
+.action-button.delete-safe:hover { 
+    background-color: #fce8e6; /* Light red background on hover */
+}
+
 .action-button:hover { background-color: #f8f9fa; }
 
 /* UNIVERSAL TABLE STYLES (DESKTOP BASELINE) */
@@ -154,6 +168,7 @@ header.kraken-header {
 
 
 /* UNIVERSAL SEARCH BAR */
+
 .search-wrapper {
     position: relative;
     display: flex;
@@ -165,16 +180,28 @@ header.kraken-header {
 .search-icon {
     position: absolute;
     left: 12px;
-    width: 18px; 
-    height: 18px;
+    width: 16px;
+    height: 16px;
     color: #5f6368;
-    z-index: 2;
     pointer-events: none;
+    z-index: 2;
 }
 
 
 .search-input.with-icon {
-    padding-left: 40px;
+    padding-left: 36px;
+    width: 100%;
+    background-color: #f1f3f4;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    height: 40px;
+    transition: background 0.2s, border 0.2s;
+}
+
+.search-input.with-icon:focus {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    outline: none;
 }
 
 /* =========================================

@@ -18,23 +18,12 @@
     margin-bottom: 24px;
     padding-bottom: 16px;
     border-bottom: 1px solid #eee;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.activity-header-controls h1 {
-    margin: 0;
-    font-size: 22px;
-    font-weight: bold;
-    color: #202124;
-    white-space: nowrap;
 }
 
 .activity-search-group {
     display: flex;
     gap: 12px;
     align-items: center;
-    flex-wrap: wrap;
 }
 
 .search-wrapper {
@@ -61,6 +50,10 @@
 .filter-btn {
     background-color: #f8f9fa;
     color: #202124;
+    white-space: nowrap; /* Prevents text from wrapping inside the button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Double-lined Cell Text Formatting & Grouping */
