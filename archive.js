@@ -8,40 +8,66 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileNameInput = document.getElementById('fileName');
 
     // 1. Open/Close Modal
-    newBtn.onclick = () => modal.style.display = 'flex';
-    closeBtns.forEach(btn => btn.onclick = () => modal.style.display = 'none');
+    if(newBtn) newBtn.onclick = () => modal.style.display = 'flex';
+    if(closeBtns) closeBtns.forEach(btn => btn.onclick = () => modal.style.display = 'none');
 
     // Close on outside click
     window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; }
 
     // 2. Trigger file browser on click
-    dropZone.onclick = () => fileInput.click();
+    if(dropZone && fileInput) dropZone.onclick = () => fileInput.click();
 
-    // 3. Handle File Selection (Auto-fill Name)
-    fileInput.onchange = () => {
-        if (fileInput.files.length > 0) {
-            fileNameInput.value = fileInput.files[0].name;
-            dropZone.querySelector('.drop-zone-text').innerText = fileInput.files[0].name;
+    // ==========================================
+    // VALIDATION HELPER FUNCTION
+    // ==========================================
+    const maxSizeInMB = 10;
+    const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+
+    function processAndValidateFile(file) {
+        if (!file) return;
+
+        // Check if file exceeds size limit
+        if (file.size > maxSizeInBytes) {
+            alert(`File is too large! Maximum allowed size is ${maxSizeInMB}MB.`);
+            fileInput.value = ''; // Clear the hidden input
+            fileNameInput.value = ''; // Clear the text box
+            dropZone.querySelector('.drop-zone-text').innerText = 'Drag & drop file or click to browse'; // Reset UI
+            return;
         }
-    };
+
+        // If valid, update the UI
+        fileNameInput.value = file.name;
+        dropZone.querySelector('.drop-zone-text').innerText = file.name;
+    }
+
+    // 3. Handle File Selection (Via Click/Browse)
+    if(fileInput) {
+        fileInput.onchange = () => {
+            if (fileInput.files.length > 0) {
+                processAndValidateFile(fileInput.files[0]);
+            }
+        };
+    }
 
     // 4. Drag and Drop Logic
-    ['dragover', 'dragleave', 'drop'].forEach(event => {
-        dropZone.addEventListener(event, (e) => {
-            e.preventDefault();
-            if (event === 'dragover') dropZone.classList.add('active');
-            else dropZone.classList.remove('active');
+    if(dropZone) {
+        ['dragover', 'dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, (e) => {
+                e.preventDefault();
+                if (event === 'dragover') dropZone.classList.add('active');
+                else dropZone.classList.remove('active');
+            });
         });
-    });
 
-    dropZone.addEventListener('drop', (e) => {
-        const files = e.dataTransfer.files;
-        if (files.length > 0) {
-            fileInput.files = files;
-            fileNameInput.value = files[0].name;
-            dropZone.querySelector('.drop-zone-text').innerText = files[0].name;
-        }
-    });
+        // Handle File Selection (Via Drag & Drop)
+        dropZone.addEventListener('drop', (e) => {
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files; // Assign dropped files to the hidden input
+                processAndValidateFile(files[0]);
+            }
+        });
+    }
 });
 
 /*VIEW BUTTON*/
@@ -51,17 +77,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const closePreviewBtn = document.querySelector('.close-preview');
 
     // 1. Open Preview Pane
-    if (viewDetailsBtn) {
+    if (viewDetailsBtn && previewPane) {
         viewDetailsBtn.addEventListener('click', () => {
             previewPane.classList.add('active');
         });
     }
 
     // 2. Close Preview Pane
-    if (closePreviewBtn) {
+    if (closePreviewBtn && previewPane) {
         closePreviewBtn.addEventListener('click', () => {
             previewPane.classList.remove('active');
         });
     }
-}); 
-
+});
