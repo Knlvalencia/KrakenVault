@@ -7,7 +7,7 @@ To work on this project without affecting the main code, please follow these ste
 
 ```bash
 # 1. Clone the repository
-git clone [https://github.com/Knlvalencia/KrakenVault.git](https://github.com/Knlvalencia/KrakenVault.git)
+git clone https://github.com/Knlvalencia/KrakenVault.git
 cd KrakenVault
 
 # 2. Create and switch to your own branch
