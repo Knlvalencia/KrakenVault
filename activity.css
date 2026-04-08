@@ -182,10 +182,6 @@
         gap: 16px;
     }
 
-    .filter-by-user, .filter-by-action {
-        align-self: flex-start;
-    }
-
     .activity-search-group {
         width: 100%;
         display: flex;
@@ -221,8 +217,7 @@
 
     .display-controls {
         display: none;
-    }
-    
+    } 
     
     .pagination-controls {
         justify-content: center;
