@@ -203,9 +203,89 @@ document.addEventListener('DOMContentLoaded', () => {
             form.reset();
         });
     }
+});
 
-    // Comment this to disable
-    for(let i = 0; i < 10; i++) {
-        autoTestAddOfficer();
-    }   
+// =========================================
+// ACTIVITY LOG: FILTER BY USER AND ACTION
+// =========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const tableBody = document.querySelector(".file-table tbody");
+
+    if (!tableBody) return;
+
+    const searchInput = document.querySelector(".search-input");
+    const userFilter = document.querySelector(".filter-by-user .row-select");
+    const actionFilter = document.querySelector(".filter-by-action .row-select");
+    const rowsPerPageSelect = document.querySelector(" .display-controls .row-select");
+
+    const allRows = Array.from(tableBody.querySelectorAll("tr"))
+
+    let filteredRows = [...allRows];
+
+    let currentPage = 1;
+
+    function updateTable() {
+        const searchTerm = searchInput ? searchInput.value.toLowerCase() : "";
+
+        const selectedUser = userFilter ? userFilter.options[userFilter.selectedIndex].text : "All Users";
+
+        const selectedAction = actionFilter ? actionFilter.options[actionFilter.selectedIndex].text : "All Actions";
+
+        filteredRows = allRows.filter(row => {
+            const rowText = row.innerText.toLowerCase();
+
+            const userCell = row.querySelector("td[data-label='Account']");
+            const actionCell = row.querySelector("td[data-label='Actions']");
+
+            const userCellText = userCell ? userCell.innerText : "";
+            const actionCellText = actionCell ? actionCell.innerText : "";
+
+            const matchesSearch = rowText.includes(searchTerm);
+
+            const matchesUser = selectedUser === "All Users" || userCellText.includes(selectedUser);
+
+            const actionKeyword = selectedAction === "All Actions" ? "" : selectedAction.split(' ')[0];
+            const matchesAction = selectedAction === "All Actions" || actionCellText.includes(actionKeyword);
+
+            return matchesSearch && matchesUser && matchesAction;
+
+        });
+
+        tableBody.innerHTML = "";
+
+        filteredRows.forEach(row => {
+            tableBody.appendChild(row);
+        });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener("input", () => {
+            currentPage = 1;
+            updateTable();
+        });
+    }
+
+    if (userFilter) {
+        userFilter.addEventListener("change", () => {
+            currentPage = 1;
+            updateTable();
+        });
+    }
+
+    if (actionFilter) {
+        actionFilter.addEventListener("change", () => {
+            currentPage = 1;
+            updateTable();
+        });
+    }
+
+    if (rowsPerPageSelect) {
+        rowsPerPageSelect.addEventListener("change", (e) => {
+            rowsPerPage = parseInt(e.target.value);
+            currentPage = 1;
+            updateTable();
+         });
+     }
+
+    updateTable();
 });

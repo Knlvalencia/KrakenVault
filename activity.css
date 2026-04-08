@@ -18,6 +18,14 @@
     margin-bottom: 24px;
     padding-bottom: 16px;
     border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+.filter-by-user, .filter-by-action {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
 }
 
 .activity-search-group {
@@ -131,7 +139,7 @@
     border-radius: 4px;
     background-color: #f1f3f4;
     color: #202124;
-    font-size: 14px;
+    font-size: 12px;
     outline: none;
     cursor: pointer;
 }
@@ -207,7 +215,11 @@
         gap: 20px;
     }
 
-    .display-controls, .pagination-controls {
+    .display-controls {
+        display: none;
+    } 
+    
+    .pagination-controls {
         justify-content: center;
         width: 100%;
         flex-wrap: wrap;
