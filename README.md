@@ -1,22 +1,23 @@
 # KrakenVault
 The document archive for the CIC LC
 
-To contribute, follow these steps:
+## How to Contribute
 
-# 1. Clone the repository to your computer
-# Note: Use the base repo URL for cloning
-git clone https://github.com/Knlvalencia/KrakenVault.git
+To work on this project without affecting the main code, please follow these steps:
+
+```bash
+# 1. Clone the repository
+git clone [https://github.com/Knlvalencia/KrakenVault.git](https://github.com/Knlvalencia/KrakenVault.git)
 cd KrakenVault
 
-# 2. Create and switch to your own private branch
-# Replace "your-name-feature" with whatever you want to call your branch
-git checkout -b "your-branch-name-here"
+# 2. Create and switch to your own branch
+# Replace "your-branch-name" with your actual name or feature (e.g., "edard-ui-fix")
+git checkout -b "your-branch-name"
 
-# --- WORK ON YOUR CODE NOW ---
-
-# 3. Save your changes once you are finished
+# 3. Stage and commit your changes
 git add .
-git commit -m "Describe what you fixed or added"
+git commit -m "Brief description of what you changed"
 
-# 4. Push your branch to GitHub (this will NOT merge with main)
-git push origin "your-branch-name-here"
+# 4. Push your branch to GitHub
+# This creates a separate branch on GitHub and will NOT merge with main
+git push origin "your-branch-name"
