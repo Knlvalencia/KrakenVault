@@ -58,150 +58,333 @@ document.addEventListener('DOMContentLoaded', () => {
 // USER MANAGEMENT: ADD OFFICER MODAL
 // =========================================
 document.addEventListener('DOMContentLoaded', () => {
+    // Modals/Forms
     const officerModal = document.getElementById('officerModal');
-    const addOfficerBtn = document.querySelector('.new-officer-btn');
-    const officerCloseBtns = document.querySelectorAll('#officerModal .close-modal');
-    const tbody = document.getElementById('tBody');
+    const deleteModal = document.getElementById('deleteModal');
     const form = document.getElementById('officerForm');
-    const editRow = document.getElementById('editRow');
+    const modalTitle = document.getElementById('modalTitle');
     const deleteName = document.getElementById('targetName');
 
-    // AUTOMATE TEST - Comment the loop at the last part of the code to disable
-    function autoTestAddOfficer() {
-    addOfficerBtn.click();
+    // Buttons
+    const addOfficerBtn = document.querySelector('.new-officer-btn');
+    const officerCloseBtns = document.querySelectorAll('#officerModal .close-modal');
+    const uploadBtn = document.querySelector('.btn-upload'); // Add/Edit button
+    const confirmBtn = document.querySelector('.btn-confirm'); // Delete button
+    const allCloseBtn = document.querySelectorAll('.close-modal');
 
-    document.getElementById('officerFirstName').value = "Test";
-    document.getElementById('officerLastName').value = "User " + Math.floor(Math.random() * 100);
-    document.getElementById('officerAge').value = Math.floor(Math.random() * 100);
-    document.getElementById('officerContact').value = "123 456 7890";
-    document.getElementById('officerCourse').value = "BSIT-IS";
-    document.getElementById('officerYearLevel').value = 2;
-    document.getElementById('officerTermYear').value = "2026-2027";
-    document.getElementById('officerPosition').value = "PLACEHOLDER 1";
-    document.getElementById('officerDateAssumed').value = "2026-05-17";
-    document.getElementById('officerAccessLevel').value = "Viewer";
+    // Table
+    const tbody = document.getElementById('tBody');
+    const editRow = document.getElementById('editRow');
 
-    form.dispatchEvent(new Event('submit')); 
-    }
+    // Initialize for Dropdown
+    let currentOpenDropdown = null;
 
-    // METHODS
+    // Initialize for Delete Modal
+    let currentDelete = null;
+
+    // --- METHODS ---
     // Open Modal 
-    function openModal() {
-        officerModal.style.display = 'flex';
-    }
+    function openModal() { officerModal.style.display = 'flex';}
 
-    // Closes Modal
+    // Multi-functional Close Modal
     function closeModal() {
         officerModal.style.display = 'none';
+        deleteModal.style.display = 'none';
+        form.reset();
+        editRow.value = "";
+        modalTitle.textContent = "Add New Officer";
+        uploadBtn.textContent = "Add Officer";
+    }
+
+    // Delete Modal
+    function showDeleteModal(row, name) {
+        currentDelete = row;
+        deleteName.textContent = name;
+        deleteModal.style.display = 'flex';
+    }
+
+    // Open Edit Modal
+    function openEditModal(row, rowId) {
+        const data = JSON.parse(row.getAttribute('data-info'));
+
+        document.getElementById('officerFirstName').value = data.firstName;
+        document.getElementById('officerLastName').value = data.lastName;
+        document.getElementById('officerAge').value = data.age;
+        document.getElementById('officerContact').value = data.contact;
+        document.getElementById('officerCourse').value = data.course;
+        document.getElementById('officerYearLevel').value = data.yearLevel;
+        document.getElementById('officerPosition').value = data.position;
+        document.getElementById('officerTermYear').value = data.termYear;
+        document.getElementById('officerDateAssumed').value = data.dateAssumed;
+        document.getElementById('officerAccessLevel').value = data.accessLevel;
+
+        editRow.value = rowId;
+        modalTitle.textContent = "Edit Officer";
+        uploadBtn.textContent = "Update Officer";
+        openModal();
     }
 
     // Update "No Entries Yet!" Row Placeholder
     function updateEmptyPlaceholder() {
         const rows = tbody.querySelectorAll('tr');
-        const emptyRow =tbody.querySelector('.empty-row');
+        const emptyRow = tbody.querySelector('.empty-row');
 
-        if (rows.length > 0) {
-            if (emptyRow) {
-                emptyRow.remove();
-            }
-        } else {
-            if (!emptyRow) {
-                tbody.innerHTML = `<tr class="empty-row" id="emptyRow">
-                                    <td colspan="5" style="color: #c872b5; text-align: center;"> <strong> NO ENTRIES YET! </strong></td>
-                                   </tr>`;
-            }
+        if (rows.length > 0 && emptyRow) {
+            emptyRow.remove();
+        } else if (rows.length === 0 && !emptyRow) {
+            tbody.innerHTML = `<tr class="empty-row" id="emptyRow">
+                <td colspan="5" style="color: #c872b5; text-align: center;"> <strong> NO ENTRIES YET! </strong></td>
+            </tr>`;
         }
     }
 
     // Validate and get data (e.g., name, term year, roles)
     function getData() {
-        let isValid = true;
+        // let isValid = true;
 
         const firstName = document.getElementById('officerFirstName').value;
         const lastName = document.getElementById('officerLastName').value;
-        const fullName = `${firstName} ${lastName}`;
+        const age = document.getElementById('officerAge').value;
+        const contact = document.getElementById('officerContact').value;
+        const course = document.getElementById('officerCourse').value;
+        const yearLevel = document.getElementById('officerYearLevel').value;
+        const position = document.getElementById('officerPosition').value;
         const termYear = document.getElementById('officerTermYear').value;
-        const officerPosition = document.getElementById('officerPosition').value;
+        const dateAssumed = document.getElementById('officerDateAssumed').value;
+        const accessLevel = document.getElementById('officerAccessLevel').value;
 
-        if (!fullName) {
-            setError('nameError', 'Full name is required');
-            isValid = false;
-        }
-        if (!termYear) {
-            setError('termYearError', 'Term Year is required');
-            isValid = false;
-        }
-        if (!officerPosition) {
-            setError('positionError', 'Position is required');
-            isValid = false;
-        }
-        if (!isValid) {
-            return null;
-        }
-
-        return {fullName, termYear, officerPosition}
+        return {
+            firstName,
+            lastName,
+            fullName: `${firstName} ${lastName}`,
+            age,
+            contact,
+            course,
+            yearLevel,
+            position,
+            termYear,
+            dateAssumed,
+            accessLevel,
+        };
     }
 
-
-    // Add row to table
-    function addRow(data) {
+    // New row from data
+    function createRow(data, rowId = null) {
+        const id = rowId || Date.now();
         const row = document.createElement('tr');
+        row.setAttribute('data-id', id);
+        row.setAttribute('data-info', JSON.stringify(data));
+
         row.innerHTML = `
             <td>${escapeHTML(data.fullName)}</td>
             <td>${escapeHTML(data.termYear)}</td>
-            <td>${escapeHTML(data.officerPosition)}</td>
+            <td>${escapeHTML(data.position)}</td>
             <td data-label="Status"><span class="status-inactive">Inactive</span></td> 
-            <td class="actions-cell" data-label="Actions">
-                <button class="action-button">•••</button>
-            </td>
         `;
-        tbody.appendChild(row);
+
+        showActionButtons(row, id);
+        return row;
+    }
+
+    // Add row to table
+    function addRow(data) {
+        const newRow = createRow(data);
+        tbody.appendChild(newRow);
         updateEmptyPlaceholder();
     }
 
+    // Update exisiting row
+    function updateRow(rowId, data) {
+        const row = tbody.querySelector(`tr[data-id="${rowId}"]`);
+        if (row) {
+            row.cells[0].textContent = data.fullName;
+            row.cells[1].textContent = data.termYear;
+            row.cells[2].textContent = data.position;
+
+            row.setAttribute('data-info', JSON.stringify(data));
+        }
+    }
+
+    // Delete Row
+    function deleteRow(row) {
+        if(row) {
+            row.remove();
+            updateEmptyPlaceholder();
+        }
+        closeModal();
+    }
+
     function escapeHTML(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp';
-            if (m === '<') return '&lt';
-            if (m === '>') return '&gt';
-            return m;
+        const m = document.createElement('m');
+        m.textContent = str;
+        return m.innerHTML;
+    }
+
+    // Show Options in Dropdown
+    function showActionButtons(row, rowId) {
+        const actionCell = document.createElement('td');
+        actionCell.className = "action-cell";
+
+        const menuDiv = document.createElement('div');
+        menuDiv.className = 'actions-menu';
+
+        const triDotsBtn = document.createElement('button');
+        triDotsBtn.className = 'dots-btn';
+        triDotsBtn.textContent = '•••';
+
+        const dropdown = document.createElement('div');
+        dropdown.className = 'dropdown-action';
+
+        const editBtn = document.createElement('button');
+        editBtn.type = "button";
+        editBtn.textContent = "Edit Officer";
+        editBtn.className = 'edit-btn';
+        editBtn.onclick = (e) => {
+            e.stopPropagation();
+            openEditModal(row, rowId);
+            menuDiv.classList.remove('active');
+            menuDiv.classList.remove('dropup')
+            if (currentOpenDropdown === menuDiv) {
+                currentOpenDropdown = null;
+            }
+        };
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = "button";
+        deleteBtn.textContent = "Delete Officer";
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.onclick = (e) => {
+            e.stopPropagation();
+            const name = row.cells[0].textContent;
+            showDeleteModal(row, name);
+            menuDiv.classList.remove('active');
+            menuDiv.classList.remove('dropup');
+            if (currentOpenDropdown === menuDiv) {
+                currentOpenDropdown = null;
+            }
+        }
+
+        dropdown.appendChild(editBtn);
+        dropdown.appendChild(deleteBtn);
+        menuDiv.appendChild(triDotsBtn);
+        menuDiv.appendChild(dropdown);
+        actionCell.appendChild(menuDiv);
+        row.appendChild(actionCell);
+
+        function adjustDropdown(menuDiv) {
+            const dropdownMenu = menuDiv.querySelector('.dropdown-action');
+    
+            dropdownMenu.style.display = 'block';
+            dropdownMenu.style.visibility = 'hidden';
+    
+            const menuRect = dropdownMenu.getBoundingClientRect();
+            const btnRect = menuDiv.getBoundingClientRect();
+    
+            const spaceBelow = window.innerHeight - btnRect.bottom;
+            const buffer = 20; 
+    
+            if (spaceBelow < menuRect.height + buffer) {
+                menuDiv.classList.add('dropup');
+            } else {
+                menuDiv.classList.remove('dropup');
+            }
+
+            dropdownMenu.style.display = '';
+            dropdownMenu.style.visibility = '';
+            }
+
+        // Dropdown Action
+        triDotsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            // Close other dropdowns if open
+            if (currentOpenDropdown && currentOpenDropdown !== menuDiv) {
+                currentOpenDropdown.classList.remove('active');
+                currentOpenDropdown.classList.remove('dropup');
+            }
+
+            // Toggle current dropdown
+            if (menuDiv.classList.contains('active')) {
+                menuDiv.classList.remove('active');
+                menuDiv.classList.remove('dropup');
+                currentOpenDropdown = null;
+            } else {
+                adjustDropdown(menuDiv);
+                menuDiv.classList.add('active');
+                currentOpenDropdown = menuDiv;
+            }
         });
     }
 
-    // Only run if the Add Officer button is actually on the current page
-    if (addOfficerBtn && officerModal) {
-        
-        // Open Modal
-        addOfficerBtn.addEventListener('click', (e) => {
-            e.preventDefault(); 
-            openModal();
-        });
+    // --- EVENT LISTENERS --- 
+    // Open Modal
+    if (addOfficerBtn) {
+        addOfficerBtn.addEventListener('click', openModal);
+    }
 
-        // Close Modal 
-        officerCloseBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                closeModal();
-            });
-        });
-
-        // Close on outside click
-        window.addEventListener('click', (e) => {
-            if (e.target === officerModal) {
-                officerModal.style.display = 'none';
-            }
-        });
-
-        // Submit Form
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const data = getData();
-            if (!data) return;
-            addRow(data);
+    // Close when click outside
+    window.addEventListener('click', (e) => {
+        if (e.target === officerModal || e.target === deleteModal) {
             closeModal();
-            form.reset();
-        });
+        }
+    });
+
+    // Submit/Edit Form
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = getData();
+        const editingId = editRow.value;
+
+        if (editingId) {
+            updateRow(editingId, data);
+        } else {
+            addRow(data);
+        }
+        closeModal();
+    });
+
+    // Delete Form
+    confirmBtn.addEventListener('click', () => {
+        if (currentDelete) {
+            currentDelete.remove();
+            updateEmptyPlaceholder();
+            closeModal();
+            currentDelete = null;
+        }
+    });
+
+    // Close/Cancel Button
+    allCloseBtn.forEach(btn => {
+        btn.addEventListener('click', closeModal);
+    });
+
+    // Close dropdown when clicked outside
+    document.addEventListener('click', function(e) {
+        const isClickInMenu = e.target.closest('.actions-menu');
+
+        if (!isClickInMenu && currentOpenDropdown) {
+            currentOpenDropdown.classList.remove('active');
+            currentOpenDropdown.classList.remove('dropup');
+            currentOpenDropdown = null;
+        }
+    });
+
+    // AUTOMATE TEST - Comment the loop at the last part of the code to disable
+    function autoTestAddOfficer() {
+        addOfficerBtn.click();
+
+        document.getElementById('officerFirstName').value = "Test";
+        document.getElementById('officerLastName').value = "User " + Math.floor(Math.random() * 100);
+        document.getElementById('officerAge').value = Math.floor(Math.random() * 100);
+        document.getElementById('officerContact').value = "123 456 7890";
+        document.getElementById('officerCourse').value = "BSIT-IS";
+        document.getElementById('officerYearLevel').value = 2;
+        document.getElementById('officerTermYear').value = "2026-2027";
+        document.getElementById('officerPosition').value = "PLACEHOLDER 1";
+        document.getElementById('officerDateAssumed').value = "2026-05-17";
+        document.getElementById('officerAccessLevel').value = "Viewer";
+
+        form.dispatchEvent(new Event('submit')); 
     }
 
     // Comment this to disable

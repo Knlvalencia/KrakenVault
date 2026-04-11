@@ -34,7 +34,7 @@
     <div id="officerModal" class="modal-overlay">
         <div class="modal-content wide-modal">
             <div class="modal-header">
-                <h2>Add New Officer</h2>
+                <h2 id="modalTitle">Add New Officer</h2>
                 <button class="close-modal">&times;</button>
             </div>
             <form id="officerForm">
@@ -106,16 +106,16 @@
     <!-- END MODAL -->
 
     <!-- START DELETE MODAL -->
-    <!-- <div id="deleteModal" class="delete-modal">
+    <div id="deleteModal" class="delete-modal">
         <div class="delete-modal-content">
             <h3> Confirm Deletion </h3>
             <p> Are you sure you want to delete <strong id="targetName"></strong>?</p>
             <div class="delete-modal-actions">
-                <button type="button" class="btn-delete close modal"> Cancel </button>
+                <button type="button" class="btn-delete close-modal"> Cancel </button>
                 <button type="submit" class="btn-confirm"> Delete </button>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- END DELETE MODAL -->
 
     <!-- TITLE AREA START -->
