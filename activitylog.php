@@ -42,6 +42,8 @@
                     </svg>
                     <input type="text" class="search-input with-icon" placeholder="Search Activity...">
                 </div>
+                <button class="action-button filter-btn">+ Add Filter</button>
+                <button class="action-button">•••</button>
 
                 <div class="filter-by-user">
                 <span>Filter by User</span>

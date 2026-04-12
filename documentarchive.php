@@ -11,7 +11,6 @@
     <script src="main.js"></script>
 </head>
 
-
 <!-- HEADER START -->
 <body>
     <header class="kraken-header">
