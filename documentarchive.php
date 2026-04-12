@@ -30,10 +30,12 @@
         </a>
     </header>
     <!-- HEADER END -->
-
-
-    <!-- LEFT SIDE BAR START -->
+     
+    <!-- MAIN CONTENT START -->
     <div class="app-body">
+
+        <!-- SIDE BAR START -->
+
         <aside class="sidebar">
             <button class="new-button"><span class="plus">+</span> New</button>
             <nav class="nav-links">
@@ -48,7 +50,7 @@
                 <a href="#">Miscellaneous</a>
             </nav>
         </aside>
-        <!-- LEFT SIDE BAR END -->
+        <!-- SIDE BAR END -->
 
         <!-- MODAL START -->
         <div id="newDocModal" class="modal-overlay">
@@ -60,15 +62,21 @@
                 <form id="uploadForm">
                     <div id="dropZone" class="drop-zone">
                         <span class="drop-zone-text">Drag & drop file or click to browse</span>
-                        <input type="file" name="fileInput" id="fileInput" hidden>
+                        <input type="file" name="fileInput" id="fileInput" accept=".pdf, .doc, .docx, .xls, .xlsx" required hidden>
                     </div>
+                    
+                    <small style="display: block; text-align: center; margin-bottom: 16px; margin-top: -16px; color: #5f6368; font-size: 12px;">
+                        Max file size: 10MB. Allowed formats: PDF, Word, Excel.
+                    </small>
+                    
                     <div class="form-group">
                         <label>File Name</label>
-                        <input type="text" id="fileName" placeholder="Enter custom name...">
+                        <input type="text" id="fileName" placeholder="Enter custom name..." required>
                     </div>
                     <div class="form-group">
                         <label>Category</label>
-                        <select id="docCategory">
+                        <select id="docCategory" required>
+                            <option value="" disabled selected>Select Category</option>
                             <option value="Financial Reports">Financial Reports</option>
                             <option value="Meeting Minutes">Meeting Minutes</option>
                             <option value="Project Proposals">Project Proposals</option>
@@ -83,8 +91,9 @@
         </div>
         <!-- MODAL END -->
 
-        <!-- CENTER CONTENT (TABLE) START -->
+        <!-- FILE TABLE START -->
         <main class="main-content">
+            <!-- TOP BAR START -->
             <header class="content-header">
                 <h1>All Documents</h1>
                 
@@ -102,7 +111,9 @@
                     <button class="view-button">View Details</button>
                 </div>
             </header>
+            <!-- TOP BAR END -->
 
+            <!-- FILES HERE START -->
             <section class="file-section">
                 <p class="section-subtitle">Files</p>
                 <table class="file-table">
@@ -128,9 +139,9 @@
                     </tbody>
                 </table>
             </section>
+            <!-- FILES HERE END -->
         </main>
-
-        <!-- CENTER CONTENT (TABLE) END -->
+        <!-- FILE TABLE END -->
 
         <!-- PREVIEW PANE START -->
         <aside class="preview-pane">
@@ -150,6 +161,6 @@
             </div>
         </aside>
         <!-- PREVIEW PANE END -->
-    </div>
+        </div>
 </body>
 </html>

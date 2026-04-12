@@ -44,6 +44,28 @@
                 </div>
                 <button class="action-button filter-btn">+ Add Filter</button>
                 <button class="action-button">•••</button>
+
+                <div class="filter-by-user">
+                <span>Filter by User</span>
+                <select class="row-select">
+                    <option value="all-users" selected>All Users</option>
+                    <option value="user1">John CIC</option>
+                    <option value="user2">John USeP</option>
+                    <option value="user3">John John</option>
+                    <option value="user4">John CED</option>
+                </select>
+                </div>
+
+                <div class="filter-by-action">
+                <span>Filter by Action</span>
+                <select class="row-select">
+                    <option value="all-actions" selected>All Actions</option>
+                    <option value="action1">Updated Document</option>
+                    <option value="action2">Downloaded Document</option>
+                    <option value="action3">Uploaded Document</option>
+                </select>
+                </div>
+
             </div>
         </div>
         <!-- TOP BAR END -->
@@ -100,6 +122,365 @@
                     <td data-label="Actions">
                         <div class="td-content">
                             <span>Downloaded <a href="#" class="file-link">name_of_file.pdf</a></span>
+                        </div>
+                    </td>
+                    <td class="actions-cell" data-label="Undo"> 
+                        <a href="#" class="undo-link">Undo</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="Date and Time">04/08/2026, 11:30AM</td>
+                    <td data-label="Account"> 
+                        <div class="td-content">
+                            <a href="#" class="primary-text link">John CIC</a>
+                            <span class="secondary-text">2025-0001</span>
+                        </div>
+                    </td>
+                    <td data-label="User">
+                        <div class="td-content">
+                            <strong class="primary-text">Tony Stark</strong>
+                            <span class="secondary-text">tstark@yourcompany.com</span>
+                        </div>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="td-content">
+                            <span>Uploaded <a href="#" class="file-link">name_of_file.pdf</a></span>
+                        </div>
+                    </td>
+                    <td class="actions-cell" data-label="Undo"> 
+                        <a href="#" class="undo-link">Undo</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td data-label="Date and Time">04/08/2026, 10:15AM</td>
+                    <td data-label="Account"> 
+                        <div class="td-content">
+                            <a href="#" class="primary-text link">John USeP</a>
+                            <span class="secondary-text">2025-0002</span>
+                        </div>
+                    </td>
+                    <td data-label="User">
+                        <div class="td-content">
+                            <strong class="primary-text">Mark Aslom</strong>
+                            <span class="secondary-text">maslom@yourcompany.com</span>
+                        </div>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="td-content">
+                            <span>Downloaded <a href="#" class="file-link">name_of_file.pdf</a></span>
+                        </div>
+                    </td>
+                    <td class="actions-cell" data-label="Undo"> 
+                        <a href="#" class="undo-link">Undo</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td data-label="Date and Time">04/08/2026, 09:00AM</td>
+                    <td data-label="Account"> 
+                        <div class="td-content">
+                            <a href="#" class="primary-text link">John John</a>
+                            <span class="secondary-text">2025-0003</span>
+                        </div>
+                    </td>
+                    <td data-label="User">
+                        <div class="td-content">
+                            <strong class="primary-text">Bruce Banner</strong>
+                            <span class="secondary-text">bbanner@yourcompany.com</span>
+                        </div>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="td-content">
+                            <span>Updated <a href="#" class="file-link">name_of_file.pdf</a></span>
+                        </div>
+                    </td>
+                    <td class="actions-cell" data-label="Undo"> 
+                        <a href="#" class="undo-link">Undo</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td data-label="Date and Time">04/07/2026, 04:45PM</td>
+                    <td data-label="Account"> 
+                        <div class="td-content">
+                            <a href="#" class="primary-text link">John CED</a>
+                            <span class="secondary-text">2025-0004</span>
+                        </div>
+                    </td>
+                    <td data-label="User">
+                        <div class="td-content">
+                            <strong class="primary-text">Natasha Romanoff</strong>
+                            <span class="secondary-text">nromanoff@yourcompany.com</span>
+                        </div>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="td-content">
+                            <span>Downloaded <a href="#" class="file-link">name_of_file.pdf</a></span>
+                        </div>
+                    </td>
+                    <td class="actions-cell" data-label="Undo"> 
+                        <a href="#" class="undo-link">Undo</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td data-label="Date and Time">04/07/2026, 02:20PM</td>
+                    <td data-label="Account"> 
+                        <div class="td-content">
+                            <a href="#" class="primary-text link">John CIC</a>
+                            <span class="secondary-text">2025-0001</span>
+                        </div>
+                    </td>
+                    <td data-label="User">
+                        <div class="td-content">
+                            <strong class="primary-text">Tony Stark</strong>
+                            <span class="secondary-text">tstark@yourcompany.com</span>
+                        </div>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="td-content">
+                            <span>Uploaded <a href="#" class="file-link">name_of_file.pdf</a></span>
+                        </div>
+                    </td>
+                    <td class="actions-cell" data-label="Undo"> 
+                        <a href="#" class="undo-link">Undo</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td data-label="Date and Time">04/07/2026, 11:10AM</td>
+                    <td data-label="Account"> 
+                        <div class="td-content">
+                            <a href="#" class="primary-text link">John USeP</a>
+                            <span class="secondary-text">2025-0002</span>
+                        </div>
+                    </td>
+                    <td data-label="User">
+                        <div class="td-content">
+                            <strong class="primary-text">Mark Aslom</strong>
+                            <span class="secondary-text">maslom@yourcompany.com</span>
+                        </div>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="td-content">
+                            <span>Updated <a href="#" class="file-link">name_of_file.pdf</a></span>
+                        </div>
+                    </td>
+                    <td class="actions-cell" data-label="Undo"> 
+                        <a href="#" class="undo-link">Undo</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td data-label="Date and Time">04/06/2026, 03:30PM</td>
+                    <td data-label="Account"> 
+                        <div class="td-content">
+                            <a href="#" class="primary-text link">John John</a>
+                            <span class="secondary-text">2025-0003</span>
+                        </div>
+                    </td>
+                    <td data-label="User">
+                        <div class="td-content">
+                            <strong class="primary-text">Bruce Banner</strong>
+                            <span class="secondary-text">bbanner@yourcompany.com</span>
+                        </div>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="td-content">
+                            <span>Uploaded <a href="#" class="file-link">name_of_file.pdf</a></span>
+                        </div>
+                    </td>
+                    <td class="actions-cell" data-label="Undo"> 
+                        <a href="#" class="undo-link">Undo</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td data-label="Date and Time">04/06/2026, 01:15PM</td>
+                    <td data-label="Account"> 
+                        <div class="td-content">
+                            <a href="#" class="primary-text link">John CED</a>
+                            <span class="secondary-text">2025-0004</span>
+                        </div>
+                    </td>
+                    <td data-label="User">
+                        <div class="td-content">
+                            <strong class="primary-text">Natasha Romanoff</strong>
+                            <span class="secondary-text">nromanoff@yourcompany.com</span>
+                        </div>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="td-content">
+                            <span>Downloaded <a href="#" class="file-link">name_of_file.pdf</a></span>
+                        </div>
+                    </td>
+                    <td class="actions-cell" data-label="Undo"> 
+                        <a href="#" class="undo-link">Undo</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td data-label="Date and Time">04/06/2026, 09:45AM</td>
+                    <td data-label="Account"> 
+                        <div class="td-content">
+                            <a href="#" class="primary-text link">John CIC</a>
+                            <span class="secondary-text">2025-0001</span>
+                        </div>
+                    </td>
+                    <td data-label="User">
+                        <div class="td-content">
+                            <strong class="primary-text">Tony Stark</strong>
+                            <span class="secondary-text">tstark@yourcompany.com</span>
+                        </div>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="td-content">
+                            <span>Updated <a href="#" class="file-link">name_of_file.pdf</a></span>
+                        </div>
+                    </td>
+                    <td class="actions-cell" data-label="Undo"> 
+                        <a href="#" class="undo-link">Undo</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td data-label="Date and Time">04/05/2026, 10:00AM</td>
+                    <td data-label="Account"> 
+                        <div class="td-content">
+                            <a href="#" class="primary-text link">John USeP</a>
+                            <span class="secondary-text">2025-0002</span>
+                        </div>
+                    </td>
+                    <td data-label="User">
+                        <div class="td-content">
+                            <strong class="primary-text">Mark Aslom</strong>
+                            <span class="secondary-text">maslom@yourcompany.com</span>
+                        </div>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="td-content">
+                            <span>Downloaded <a href="#" class="file-link">name_of_file.pdf</a></span>
+                        </div>
+                    </td>
+                    <td class="actions-cell" data-label="Undo"> 
+                        <a href="#" class="undo-link">Undo</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td data-label="Date and Time">04/05/2026, 08:30AM</td>
+                    <td data-label="Account"> 
+                        <div class="td-content">
+                            <a href="#" class="primary-text link">John John</a>
+                            <span class="secondary-text">2025-0003</span>
+                        </div>
+                    </td>
+                    <td data-label="User">
+                        <div class="td-content">
+                            <strong class="primary-text">Bruce Banner</strong>
+                            <span class="secondary-text">bbanner@yourcompany.com</span>
+                        </div>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="td-content">
+                            <span>Uploaded <a href="#" class="file-link">name_of_file.pdf</a></span>
+                        </div>
+                    </td>
+                    <td class="actions-cell" data-label="Undo"> 
+                        <a href="#" class="undo-link">Undo</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td data-label="Date and Time">04/04/2026, 04:20PM</td>
+                    <td data-label="Account"> 
+                        <div class="td-content">
+                            <a href="#" class="primary-text link">John CED</a>
+                            <span class="secondary-text">2025-0004</span>
+                        </div>
+                    </td>
+                    <td data-label="User">
+                        <div class="td-content">
+                            <strong class="primary-text">Natasha Romanoff</strong>
+                            <span class="secondary-text">nromanoff@yourcompany.com</span>
+                        </div>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="td-content">
+                            <span>Updated <a href="#" class="file-link">name_of_file.pdf</a></span>
+                        </div>
+                    </td>
+                    <td class="actions-cell" data-label="Undo"> 
+                        <a href="#" class="undo-link">Undo</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td data-label="Date and Time">04/04/2026, 01:00PM</td>
+                    <td data-label="Account"> 
+                        <div class="td-content">
+                            <a href="#" class="primary-text link">John CIC</a>
+                            <span class="secondary-text">2025-0001</span>
+                        </div>
+                    </td>
+                    <td data-label="User">
+                        <div class="td-content">
+                            <strong class="primary-text">Tony Stark</strong>
+                            <span class="secondary-text">tstark@yourcompany.com</span>
+                        </div>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="td-content">
+                            <span>Downloaded <a href="#" class="file-link">name_of_file.pdf</a></span>
+                        </div>
+                    </td>
+                    <td class="actions-cell" data-label="Undo"> 
+                        <a href="#" class="undo-link">Undo</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td data-label="Date and Time">04/03/2026, 11:45AM</td>
+                    <td data-label="Account"> 
+                        <div class="td-content">
+                            <a href="#" class="primary-text link">John USeP</a>
+                            <span class="secondary-text">2025-0002</span>
+                        </div>
+                    </td>
+                    <td data-label="User">
+                        <div class="td-content">
+                            <strong class="primary-text">Mark Aslom</strong>
+                            <span class="secondary-text">maslom@yourcompany.com</span>
+                        </div>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="td-content">
+                            <span>Uploaded <a href="#" class="file-link">name_of_file.pdf</a></span>
+                        </div>
+                    </td>
+                    <td class="actions-cell" data-label="Undo"> 
+                        <a href="#" class="undo-link">Undo</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td data-label="Date and Time">04/03/2026, 09:10AM</td>
+                    <td data-label="Account"> 
+                        <div class="td-content">
+                            <a href="#" class="primary-text link">John John</a>
+                            <span class="secondary-text">2025-0003</span>
+                        </div>
+                    </td>
+                    <td data-label="User">
+                        <div class="td-content">
+                            <strong class="primary-text">Bruce Banner</strong>
+                            <span class="secondary-text">bbanner@yourcompany.com</span>
+                        </div>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="td-content">
+                            <span>Updated <a href="#" class="file-link">name_of_file.pdf</a></span>
                         </div>
                     </td>
                     <td class="actions-cell" data-label="Undo"> 
