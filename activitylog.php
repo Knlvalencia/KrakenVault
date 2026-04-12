@@ -1,33 +1,16 @@
+<?php 
+$pageTitle = 'Activity Log'; 
+$activePage = 'activity'; 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kraken Vault | Activity Log</title>
-    <link rel="stylesheet" href="main.css">
+    <?php include 'components/head.php'; ?>
     <link rel="stylesheet" href="activity.css">
-    <script src="main.js"></script>
 </head>
 <body>
     <!-- HEADER START -->
-    <header class="kraken-header">
-        <div class="nav-group">
-            <button class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <img src="logo.png" alt="logo" class="logo">
-            <nav class="nav-menu">
-                <a href="documentarchive.html">Document Archive</a>
-                <a href="ActivityLog.html" class="active">Activity Log</a>
-                <a href="UserManagement.html">User Management</a>
-            </nav>
-        </div>
-        <a href="UserProfile.html" class="profile-area">
-            <img src="pfp.png" alt="Profile" class="profile-icon">
-        </a>
-    </header>
+        <?php include 'components/header.php'; ?>
     <!-- HEADER END -->
 
     <!-- TOP BAR START -->

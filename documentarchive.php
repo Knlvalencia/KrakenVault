@@ -1,34 +1,19 @@
+<?php 
+$pageTitle = 'Document Archive'; 
+$activePage = 'archive'; 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kraken Vault | Document Archive</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="main.css">
+    <?php include 'components/head.php'; ?>
     <link rel="stylesheet" href="archive.css">
     <script src="archive.js"></script>
-    <script src="main.js"></script>
 </head>
 
-<!-- HEADER START -->
+
 <body>
-    <header class="kraken-header">
-        <div class="nav-group">
-            <button class="menu-toggle">
-                <span></span><span></span><span></span>
-            </button>
-            <img src="logo.png" alt="logo" class="logo">
-            <nav class="nav-menu">
-                <a href="documentarchive.html" class="active">Document Archive</a>
-                <a href="ActivityLog.html">Activity Log</a>
-                <a href="UserManagement.html">User Management</a>
-            </nav>
-        </div>
-        <a href="UserProfile.html" class="profile-area">
-            <img src="pfp.png" alt="Profile" class="profile-icon">
-        </a>
-    </header>
+    <!-- HEADER START -->
+        <?php include 'components/header.php'; ?>
     <!-- HEADER END -->
      
     <!-- MAIN CONTENT START -->
