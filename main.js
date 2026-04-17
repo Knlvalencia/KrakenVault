@@ -107,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function openEditModal(row, rowId) {
         const data = JSON.parse(row.getAttribute('data-info'));
 
-        document.getElementById('officerFirstName').value = data.firstName;
-        document.getElementById('officerLastName').value = data.lastName;
+        document.getElementById('officerFullName').value = data.fullName;
+        document.getElementById('officerStudentId').value = data.studentId;
         document.getElementById('officerAge').value = data.age;
         document.getElementById('officerContact').value = data.contact;
         document.getElementById('officerCourse').value = data.course;
@@ -140,10 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Validate and get data (e.g., name, term year, roles)
     function getData() {
-        // let isValid = true;
-
-        const firstName = document.getElementById('officerFirstName').value;
-        const lastName = document.getElementById('officerLastName').value;
+        const fullName = document.getElementById('officerFullName').value;
+        const studentId = document.getElementById('officerStudentId').value;
         const age = document.getElementById('officerAge').value;
         const contact = document.getElementById('officerContact').value;
         const course = document.getElementById('officerCourse').value;
@@ -154,9 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const accessLevel = document.getElementById('officerAccessLevel').value;
 
         return {
-            firstName,
-            lastName,
-            fullName: `${firstName} ${lastName}`,
+            fullName,
+            studentId,
             age,
             contact,
             course,
@@ -176,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
         row.setAttribute('data-info', JSON.stringify(data));
 
         row.innerHTML = `
-            <td>${escapeHTML(data.fullName)}</td>
+            <td>${escapeHTML(data.fullName)} <br> <small>${escapeHTML(data.studentId)}</small></td>
             <td>${escapeHTML(data.termYear)}</td>
             <td>${escapeHTML(data.position)}</td>
             <td data-label="Status"><span class="status-inactive">Inactive</span></td> 
@@ -197,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateRow(rowId, data) {
         const row = tbody.querySelector(`tr[data-id="${rowId}"]`);
         if (row) {
-            row.cells[0].textContent = data.fullName;
+            row.cells[0].innerHTML = `${escapeHTML(data.fullName)} <br> <small style="font-size: 12px; color: #5f6368;">${escapeHTML(data.studentId)}</small>`;
             row.cells[1].textContent = data.termYear;
             row.cells[2].textContent = data.position;
 
@@ -369,12 +366,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // AUTOMATE TEST - Comment the loop at the last part of the code to disable
+    // AUTOMATE TEST - Comment the loop to disable
     function autoTestAddOfficer() {
         addOfficerBtn.click();
 
-        document.getElementById('officerFirstName').value = "Test";
-        document.getElementById('officerLastName').value = "User " + Math.floor(Math.random() * 100);
+        document.getElementById('officerFullName').value = "Test User " + Math.floor(Math.random() * 100);
+        document.getElementById('officerStudentId').value = "2024-00001";
         document.getElementById('officerAge').value = Math.floor(Math.random() * 100);
         document.getElementById('officerContact').value = "123 456 7890";
         document.getElementById('officerCourse').value = "BSIT-IS";
@@ -385,6 +382,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('officerAccessLevel').value = "Viewer";
 
         form.dispatchEvent(new Event('submit')); 
+    }
+
+    // Comment this to disable automate test
+    for (var i = 0; i < 5; i++) {
+        autoTestAddOfficer();
     }
 });
 

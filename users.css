@@ -119,6 +119,13 @@ tr:has(.actions-menu.active) {
 
 .file-table tbody tr:hover {background-color: #f8f9fa;}
 
+.file-table td:first-child small {
+    display: inline-block;
+    font-size: 12px;
+    color: #5f6368;
+    margin-top: 2px;
+}
+
 /* STATUS BADGES */
 .status-inactive {
     background-color: #fce8e6;
@@ -658,6 +665,10 @@ tr:has(.actions-menu.active) {
         font-size: 14px;
     }
 
+    .file-table td:first-child small { 
+        font-size: 14px; /* Not really sure what should it look like in mobile view */
+    }
+    
     .file-table td:last-child {border-bottom: none;}
 
     .file-table td:before {

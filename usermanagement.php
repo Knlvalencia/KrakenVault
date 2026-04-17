@@ -1,7 +1,8 @@
 <?php 
-$pageTitle = 'User Management'; 
-$activePage = 'users'; 
+    $pageTitle = 'User Management'; 
+    $activePage = 'users'; 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,12 +26,12 @@ $activePage = 'users';
                 <input type="hidden" id="editRow" value=""> 
                 <div class="form-grid">
                     <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" id="officerFirstName" placeholder="First name..." required>
+                        <label>Full Name</label>
+                        <input type="text" id="officerFullName" placeholder="Full name..." required>
                     </div>
                     <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" id="officerLastName" placeholder="Last name..." required>
+                        <label>Student ID</label>
+                        <input type="text" id="officerStudentId" placeholder="e.g., 20XX-00001" required>
                     </div>
                     <div class="form-group">
                         <label>Age</label>
