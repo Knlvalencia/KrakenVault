@@ -15,7 +15,7 @@ body {
     height: 100vh; 
     color: #333; 
     background-color: #fff; 
-    transition: margin-left 0.4s ease; /* Supports the new menu push feature */
+    transition: margin-left 0.4s ease; 
     overflow-x: hidden;
 }
 
@@ -52,7 +52,7 @@ header.kraken-header {
     object-fit: cover;
 }
 
-/* UNIVERSAL NAVIGATION MENU (NEW FEATURE) */
+/* UNIVERSAL NAVIGATION MENU */
 .nav-group {
     display: flex;
     align-items: center;
@@ -83,7 +83,7 @@ header.kraken-header {
     flex-direction: column;
     position: fixed;
     top: 74px;
-    left: -280px; /* Hidden state */
+    left: -280px;
     width: 200px;
     height: 100vh;
     z-index: 999;
@@ -94,7 +94,7 @@ header.kraken-header {
 }
 
 .nav-menu.open {
-    left: 0; /* Shown state via JS toggle */
+    left: 0; 
 }
 
 .nav-menu a {
@@ -125,8 +125,8 @@ header.kraken-header {
 
 .action-button.delete-safe { 
     background-color: #fff; 
-    color: #d93025; /* Red text */
-    border: 1px solid #d93025; /* Red border */
+    color: #d93025; 
+    border: 1px solid #d93025; 
     width: 100%; 
     padding: 10px; 
     font-size: 14px; 
@@ -134,7 +134,7 @@ header.kraken-header {
 }
 
 .action-button.delete-safe:hover { 
-    background-color: #fce8e6; /* Light red background on hover */
+    background-color: #fce8e6; 
 }
 
 .action-button:hover { background-color: #f8f9fa; }

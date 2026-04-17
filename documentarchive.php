@@ -118,7 +118,7 @@ $activePage = 'archive';
                             <td data-label="Last modified">08/04/26</td>
                             <td data-label="Owner">Valencia</td>
                             <td class="actions-cell" data-label="Actions">
-                                <button class="action-button view">View</button>
+                                <button class="action-button view">...</button>
                             </td>
                         </tr>
                     </tbody>
