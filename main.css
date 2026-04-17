@@ -169,13 +169,13 @@ header.kraken-header {
 
 /* UNIVERSAL SEARCH BAR */
 
+
 .search-wrapper {
     position: relative;
     display: flex;
     align-items: center;
     width: 100%;
 }
-
 
 .search-icon {
     position: absolute;
@@ -187,14 +187,14 @@ header.kraken-header {
     z-index: 2;
 }
 
-
 .search-input.with-icon {
-    padding-left: 36px;
     width: 100%;
-    background-color: #f1f3f4;
+    background-color: #f1f3f4; /* Light grey background */
     border: 1px solid transparent;
-    border-radius: 8px;
+    border-radius: 8px; /* Rounded corners */
     height: 40px;
+    padding-left: 36px;
+    font-size: 14px;
     transition: background 0.2s, border 0.2s;
 }
 
@@ -202,6 +202,7 @@ header.kraken-header {
     background-color: #fff;
     border: 1px solid #ddd;
     outline: none;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
 }
 
 /* =========================================

@@ -71,9 +71,7 @@
     width: 100%;
     height: 40px; 
     padding: 10px 16px 10px 38px; 
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f1f3f4;
+    /* border: 1px solid #ddd; */
     font-size: 14px;
     transition: background-color 0.2s, border 0.2s;
     box-sizing: border-box; 
