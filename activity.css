@@ -11,6 +11,7 @@
     box-sizing: border-box;
 }
 
+/* Header Container: Title on left, everything else on right */
 .activity-header-controls {
     display: flex;
     justify-content: space-between;
@@ -18,26 +19,32 @@
     margin-bottom: 24px;
     padding-bottom: 16px;
     border-bottom: 1px solid #eee;
-    font-size: 13px;
+    gap: 20px; /* Small gap to prevent touching on small screens */
 }
 
-.filter-by-user, .filter-by-action {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 3px;
+.activity-header-controls h1 {
+    margin: 0;
+    font-size: 24px;
+    white-space: nowrap;
 }
 
+/* This group holds search and filters together */
 .activity-search-group {
     display: flex;
-    gap: 12px;
+    gap: 24px;
     align-items: center;
+    flex: 1; 
+    justify-content: flex-end; /* Pushes content to the right */
 }
 
+/* SEARCH BAR: Fixed length logic */
 .search-wrapper {
     position: relative;
     display: flex;
     align-items: center;
+    /* This keeps it 400px wide even when the window is small */
+    width: 400px; 
+    min-width: 400px; 
 }
 
 .search-icon {
@@ -51,20 +58,49 @@
 
 .search-input.with-icon {
     padding-left: 36px;
-    width: 260px;
-    max-width: 100%;
-}
-
-.filter-btn {
+    width: 100%; 
+    height: 38px; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
     background-color: #f8f9fa;
-    color: #202124;
-    white-space: nowrap; /* Prevents text from wrapping inside the button */
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-/* Double-lined Cell Text Formatting & Grouping */
+/* Filters: Grouped on the right */
+.filter_btn {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.filter-by-user, .filter-by-action {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.filter-by-user span, .filter-by-action span {
+    font-size: 11px;
+    font-weight: 700;
+    color: #5f6368;
+    text-transform: uppercase;
+}
+
+.filter_btn .row-select {
+    width: 160px; 
+    height: 36px;
+    padding: 0 8px;
+    background-color: #fff;
+}
+
+/* Table Formatting */
+.file-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
 .td-content {
     display: flex;
     flex-direction: column;
@@ -87,7 +123,7 @@
 }
 
 .secondary-text {
-    font-size: 13px;
+    font-size: 12px;
     color: #5f6368;
     margin-top: 2px;
 }
@@ -171,57 +207,29 @@
    MOBILE RESPONSIVENESS
    ========================================= */
 
-@media (max-width: 768px) {
-    .activity-content {
-        padding: 16px;
-    }
-
+@media (max-width: 992px) {
     .activity-header-controls {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
         gap: 16px;
     }
 
     .activity-search-group {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        gap: 8px;
-    }
-    
-    .search-wrapper {
-        flex: 1;
-        min-width: 120px;
-    }
-    
-    .search-input.with-icon {
-        width: 100%;
-    }
-
-    .filter-btn, .action-button {
-        padding: 6px 12px;
-    }
-
-    
-    .td-content {
-        align-items: flex-end;
-        text-align: right;
-    }
-
-    .bottom-bar {
         flex-direction: column;
-        justify-content: center;
-        gap: 20px;
+        align-items: stretch;
     }
 
-    .display-controls {
-        display: none;
-    } 
-    
-    .pagination-controls {
-        justify-content: center;
+    .search-wrapper {
         width: 100%;
-        flex-wrap: wrap;
+        min-width: 100%;
+    }
+
+    .filter_btn {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .filter_btn .row-select {
+        width: 100%;
     }
 }
