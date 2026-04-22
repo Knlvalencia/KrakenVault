@@ -35,7 +35,7 @@
                     </div>
                     <div class="form-group">
                         <label>Age</label>
-                        <input type="number" id="officerAge" placeholder="Age..." required>
+                        <input type="number" id="officerAge" min="1" max="100" placeholder="Age..." required>
                     </div>
                     <div class="form-group">
                         <label>Contact Number</label>
@@ -108,9 +108,65 @@
         <div class="users-header-controls">
             <h1>User Management</h1>
             <div class="user-search-group">
-                <button class="action-button sort-btn">
-                    <span class="sort-icon">⇅</span> Sort
-                </button>
+
+                <!-- FILTER DROPDOWN MODAL START-->
+                <div class="filter-wrapper">
+                    <button class="action-button sort-btn"><span class="sort-icon">⇅</span> Sort & Filter</button>
+
+                    <div id="filterDropdown" class="filter-panel">
+                    <div class="filter-title"> Show Only: </div>
+                    <div class="filter-field-group">
+                        <label> Role: </label>
+                        <select id="filterRole">
+                            <option value="PLACEHOLDER 1"> PLACEHOLDER 1</option>
+                            <option value="PLACEHOLDER 2"> PLACEHOLDER 2</option>
+                        </select>
+                    </div>
+                    <div class="filter-field-group">
+                        <label> Status: </label>
+                        <select id="filterStatus">
+                            <option value="active"> Active </option>
+                            <option value="inactive"> Inactive </option>
+                        </select>
+                    </div>
+                    <div class="filter-field-group">
+                        <label> Year: </label>
+                        <select id="filterYear">
+                            <option value="any"> Any time </option>
+                            <option value="present"> Since 2026 - present </option>
+                            <option value="previous-year"> Since 2025 - 2026 </option>
+                            <option value="last-previous-year"> Since 2024 - 2025</option>
+                            <option value="custom"> Custom Range: </option>
+                        </select>
+                        <div id="customYearRange" class="custom-year-range">
+                            <div class="range-row">
+                                <input type="number" name="yearFrom" placeholder="From...">
+                                <span>-</span>
+                                <input type="number" name="yearTo" placeholder="To...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-field-group">
+                        <label> Sort by: </label>
+                        <div class="sort-row">
+                            <select id="sortType">
+                                <option value="first-message"> Name</option>
+                                <option value="name"> Date Assumed </option>
+                                <option value="studentId"> Year Level </option>
+                            </select>
+                            <select id="sortOrder">
+                                <option value="asc"> Ascending </option>
+                                <option value="desc"> Descending </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-footer">
+                        <button type="button" id="filterBtn" class="btn-filter"> Filter </button>
+                    </div>
+                </div>
+                </div>
+                <!-- END FILTER DROPDOWN MODAL -->
+
                 <div class="search-wrapper">
                     <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>

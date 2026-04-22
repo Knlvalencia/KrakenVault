@@ -64,6 +64,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('officerForm');
     const modalTitle = document.getElementById('modalTitle');
     const deleteName = document.getElementById('targetName');
+    const filterWrapper = document.querySelector('.filter-wrapper');
+    const filterYear = document.getElementById('filterYear');
+    const customRange = document.getElementById('customYearRange');
+    const yearFrom = document.getElementById('yearFrom');
+    const yearTo = document.getElementById('yearTo');
 
     // Buttons
     const addOfficerBtn = document.querySelector('.new-officer-btn');
@@ -71,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const uploadBtn = document.querySelector('.btn-upload'); // Add/Edit button
     const confirmBtn = document.querySelector('.btn-confirm'); // Delete button
     const allCloseBtn = document.querySelectorAll('.close-modal');
+    const sortBtn = document.querySelector('.sort-btn');
 
     // Table
     const tbody = document.getElementById('tBody');
@@ -294,6 +300,11 @@ document.addEventListener('DOMContentLoaded', () => {
         triDotsBtn.addEventListener('click', (e) => {
             e.stopPropagation();
 
+            // Close Sort & Filter if opened
+            if (filterWrapper) {
+                filterWrapper.classList.remove('active');
+            }
+
             // Close other dropdowns if open
             if (currentOpenDropdown && currentOpenDropdown !== menuDiv) {
                 currentOpenDropdown.classList.remove('active');
@@ -319,10 +330,67 @@ document.addEventListener('DOMContentLoaded', () => {
         addOfficerBtn.addEventListener('click', openModal);
     }
 
-    // Close when click outside
+    // Modal (Close when clicked outside)
     window.addEventListener('click', (e) => {
         if (e.target === officerModal || e.target === deleteModal) {
             closeModal();
+        }
+    });
+
+    // Sort & Filter 
+    if (sortBtn && filterWrapper) {
+        sortBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Close dropdown action if opened
+            if (currentOpenDropdown) {
+                currentOpenDropdown.classList.remove('active');
+                currentOpenDropdown.classList.remove('dropup');
+                currentOpenDropdown = null;
+            }
+
+            filterWrapper.classList.toggle('active');
+        });
+    }
+
+    // If "Custom Year" is chosen as an option
+    if (filterYear && customRange) {
+        filterYear.addEventListener('change', function() {
+            if (this.value === 'custom') {
+                customRange.style.display = 'block';
+            } else {
+                customRange.style.display = 'none';
+            }
+        });
+    }
+
+    // Prevents negative inputs in custom year
+    [yearFrom, yearTo].forEach(input => {
+        if (input) {
+            input.addEventListener('change', function() {
+                if (this.value !== "" && parseInt(this.value) < 0) {
+                    alert("Please enter a valid year.");
+                    this.value = "";
+                    this.classList.add('input-error');
+                } else {
+                    this.classList.remove('input-error');
+                }
+            })
+        }
+    })
+
+    // Sort & Filter (Closed when clicked outside)
+    document.addEventListener('click', function (e) {
+        if (filterWrapper && !filterWrapper.contains(e.target) && filterWrapper.classList.contains('active')) {
+            filterWrapper.classList.remove('active');
+        }
+
+        const isClickInMenu = e.target.closest('.actions-menu');
+        if (isClickInMenu && currentOpenDropdown) {
+            currentOpenDropdown.classList.remove('active');
+            currentOpenDropdown.classList.remove('dropup');
+            currentOpenDropdown = null;
         }
     });
 
@@ -355,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', closeModal);
     });
 
-    // Close dropdown when clicked outside
+    // Action Dropdown (Close when clicked outside)
     document.addEventListener('click', function(e) {
         const isClickInMenu = e.target.closest('.actions-menu');
 

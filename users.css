@@ -39,6 +39,7 @@
     gap: 12px;
 }
 
+/* safe to delete? class x-btn is not in usermanagement.php */
 .x-btn {
     height: 40px; /* Matches the search bar height */
     display: flex;
@@ -48,6 +49,122 @@
     background-color: #f8f9fa;
     color: #202124;
 }
+
+/* Filter & Sort Dropdown */
+.sort-btn {
+    position: relative;
+}
+
+.filter-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.filter-panel {
+    position: absolute;
+    background-color: #fff;
+    padding: 16px;
+    min-width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+    display: none;
+    top: calc(100% + 8px);
+    left: 0;
+    z-index: 1001;
+}
+
+.filter-wrapper.active .filter-panel {
+    display: block !important;
+    animation: dropdownFadeIn 0.2s ease;
+}
+
+.filter-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.filter-field-group {
+    margin-bottom: 16px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 12px;
+}
+
+.filter-field-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #5f6368;
+}
+
+.filter-field-group input, .filter-field-group select {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px;
+    width: 100%;
+    font-size: 14px;
+}
+
+.filter-field-group input:focus, .filter-field-group select:focus {
+    outline: none;
+    border-color: #49154a;
+    box-shadow: 0px 0px 0px 3px rgba(73, 21, 74, 0.1);
+}
+
+.custom-year-range {
+    margin-top: 10px;
+    animation: dropdownFadeIn 0.2s ease;
+    display: none;
+}
+
+.range-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.range-row input {
+    flex: 1;
+    text-align: center;
+    padding: 6px !important;
+}
+
+.range-row span {
+    color: #5f6368;
+    font-weight: bold;
+}
+
+.sort-row {
+    display: flex;
+    gap: 10px;
+}
+
+.sort-row select {flex: 1;}
+
+.filter-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.btn-filter {
+    background-color: #49154a ;
+    color: #fff ;
+    border: 1px solid #49154a;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: auto;
+    display: inline-block;
+}
+
+.btn-filter:hover {background-color: #3b113c !important;}
 
 /* Search Wrapper & Input Fixes */
 .search-wrapper {
@@ -564,7 +681,7 @@ tr:has(.actions-menu.active) {
         align-items: center;
         gap: 12px;
     }
-    
+
     .search-wrapper {
         flex: 1;
         min-width: 180px;
@@ -583,7 +700,6 @@ tr:has(.actions-menu.active) {
         margin: auto;
         max-height: 93vh;
         overflow: hidden; 
-        /*overflow-y: auto;*/
         display: flex;
         flex-direction: column;
         position: relative;
