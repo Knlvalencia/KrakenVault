@@ -1,4 +1,8 @@
 <?php 
+require_once __DIR__ . '/classes/DocumentArchive.php';
+$documentModel = new DocumentArchive();
+$documents = $documentModel->getAllDocuments();
+
 $pageTitle = 'Document Archive'; 
 $activePage = 'archive'; 
 ?>
@@ -112,15 +116,23 @@ $activePage = 'archive';
                         </tr>
                     </thead>
                     <tbody>
-                        <tr onclick="showPreview('Annual_Budget_2026.pdf', 'Financial Reports', '08/04/26', 'Valencia')">
-                            <td data-label="Name"><div class="file-icon"></div> Annual_Budget_2026.pdf</td>
-                            <td data-label="Category">Financial Reports</td>
-                            <td data-label="Last modified">08/04/26</td>
-                            <td data-label="Owner">Valencia</td>
-                            <td class="actions-cell" data-label="Actions">
-                                <button class="action-button view">...</button>
-                            </td>
+                        <?php if (empty($documents)): ?>
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #666;"><strong>NO DOCUMENTS YET!</strong></td>
                         </tr>
+                        <?php else: ?>
+                            <?php foreach ($documents as $doc): ?>
+                            <tr onclick="showPreview('<?= htmlspecialchars($doc['documentname']) ?>', '<?= htmlspecialchars($doc['category']) ?>', '<?= htmlspecialchars($doc['creationdate']) ?>', '<?= htmlspecialchars($doc['officerincharge']) ?>')">
+                                <td data-label="Name"><div class="file-icon"></div> <?= htmlspecialchars($doc['documentname']) ?></td>
+                                <td data-label="Category"><?= htmlspecialchars($doc['category']) ?></td>
+                                <td data-label="Last modified"><?= htmlspecialchars($doc['creationdate']) ?></td>
+                                <td data-label="Owner"><?= htmlspecialchars($doc['officerincharge']) ?></td>
+                                <td class="actions-cell" data-label="Actions">
+                                    <button class="action-button view">...</button>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </section>
