@@ -1,7 +1,8 @@
 <?php 
-$pageTitle = 'User Management'; 
-$activePage = 'users'; 
+    $pageTitle = 'User Management'; 
+    $activePage = 'users'; 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,16 +26,16 @@ $activePage = 'users';
                 <input type="hidden" id="editRow" value=""> 
                 <div class="form-grid">
                     <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" id="officerFirstName" placeholder="First name..." required>
+                        <label>Full Name</label>
+                        <input type="text" id="officerFullName" placeholder="Full name..." required>
                     </div>
                     <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" id="officerLastName" placeholder="Last name..." required>
+                        <label>Student ID</label>
+                        <input type="text" id="officerStudentId" placeholder="e.g., 20XX-00001" required>
                     </div>
                     <div class="form-group">
                         <label>Age</label>
-                        <input type="number" id="officerAge" placeholder="Age..." required>
+                        <input type="number" id="officerAge" min="1" max="100" placeholder="Age..." required>
                     </div>
                     <div class="form-group">
                         <label>Contact Number</label>
@@ -107,9 +108,67 @@ $activePage = 'users';
         <div class="users-header-controls">
             <h1>User Management</h1>
             <div class="user-search-group">
-                <button class="action-button sort-btn">
-                    <span class="sort-icon">⇅</span> Sort
-                </button>
+
+                <!-- FILTER DROPDOWN MODAL START-->
+                <div class="filter-wrapper">
+                    <button class="action-button sort-btn"><span class="sort-icon">⇅</span> Sort & Filter</button>
+
+                    <div id="filterDropdown" class="filter-panel">
+                    <div class="filter-title"> Show Only: </div>
+                    <div class="filter-field-group">
+                        <label> Role: </label>
+                        <select id="filterRole">
+                            <option value="allRoles"> All Roles </option>
+                            <option value="PLACEHOLDER 1"> PLACEHOLDER 1</option>
+                            <option value="PLACEHOLDER 2"> PLACEHOLDER 2</option>
+                        </select>
+                    </div>
+                    <div class="filter-field-group">
+                        <label> Status: </label>
+                        <select id="filterStatus">
+                            <option value="allStatus"> All Status </option>
+                            <option value="active"> Active </option>
+                            <option value="inactive"> Inactive </option>
+                        </select>
+                    </div>
+                    <div class="filter-field-group">
+                        <label> Term Year: </label>
+                        <select id="filterYear">
+                            <option value="allTime"> Any time </option>
+                            <option value="present"> Since 2026 - present </option>
+                            <option value="previous-year"> Since 2025 - 2026 </option>
+                            <option value="last-previous-year"> Since 2024 - 2025</option>
+                            <option value="custom"> Custom Range: </option>
+                        </select>
+                        <div id="customYearRange" class="custom-year-range">
+                            <div class="range-row">
+                                <input type="number" id="yearFrom" name="yearFrom" placeholder="From...">
+                                <span>-</span>
+                                <input type="number" id="yearTo" name="yearTo" placeholder="To...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-field-group">
+                        <label> Sort by: </label>
+                        <div class="sort-row">
+                            <select id="sortType">
+                                <option value="name"> Name</option>
+                                <option value="dateAssumed"> Date Assumed </option>
+                                <option value="yearLevel"> Year Level </option>
+                            </select>
+                            <select id="sortOrder">
+                                <option value="asc"> Ascending </option>
+                                <option value="desc"> Descending </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-footer">
+                        <button type="button" id="filterBtn" class="btn-filter"> Filter </button>
+                    </div>
+                </div>
+                </div>
+                <!-- END FILTER DROPDOWN MODAL -->
+
                 <div class="search-wrapper">
                     <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
