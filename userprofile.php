@@ -7,7 +7,7 @@ $activePage = 'profile';
 <html lang="en">
 <head>
     <?php include 'components/head.php'; ?>
-    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="profile.css?v=<?= time() ?>">
 </head>
 <body>
     <!-- HEADER START -->
@@ -140,28 +140,28 @@ $activePage = 'profile';
                         <td data-label="Student ID">2025-0001</td>
                         <td data-label="Email">tedwald@usep.edu.ph</td>
                         <td class="actions-cell" data-label="Actions">
-                        <div class="actions-menu">
-                            <button class="dots-btn">•••</button> 
-                            <div class="dropdown-action">
-                                <button type="button" class="edit-btn">Edit Member</button>
-                                <button type="button" class="delete-btn">Delete Member</button>
+                            <div class="dropdown">
+                                <button class="action-button dropdown-toggle" title="Actions"><span class="material-symbols-outlined">more_vert</span></button>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item edit-btn"><span class="material-symbols-outlined">edit</span><span>Edit Member</span></a>
+                                    <a href="#" class="dropdown-item delete-btn"><span class="material-symbols-outlined" style="color:#d93025">delete</span><span style="color:#d93025">Delete Member</span></a>
+                                </div>
                             </div>
-                        </div>
-                    </td>
+                        </td>
                     </tr>
                     <tr>
                         <td data-label="Student Name">Kylie Valence</td>
                         <td data-label="Student ID">2025-0002</td>
                         <td data-label="Email">kvalence@usep.edu.ph</td>
                         <td class="actions-cell" data-label="Actions">
-                        <div class="actions-menu">
-                            <button class="dots-btn">•••</button> 
-                            <div class="dropdown-action">
-                                <button type="button" class="edit-btn">Edit Member</button>
-                                <button type="button" class="delete-btn">Delete Member</button>
+                            <div class="dropdown">
+                                <button class="action-button dropdown-toggle" title="Actions"><span class="material-symbols-outlined">more_vert</span></button>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item edit-btn"><span class="material-symbols-outlined">edit</span><span>Edit Member</span></a>
+                                    <a href="#" class="dropdown-item delete-btn"><span class="material-symbols-outlined" style="color:#d93025">delete</span><span style="color:#d93025">Delete Member</span></a>
+                                </div>
                             </div>
-                        </div>
-                    </td>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -200,5 +200,6 @@ $activePage = 'profile';
         </section>
         <!-- ACTIVITY LOG END -->
     </main>
+    <script src="archive.js"></script>
 </body>
 </html>

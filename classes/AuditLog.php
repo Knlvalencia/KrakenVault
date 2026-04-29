@@ -18,6 +18,18 @@ class AuditLog {
         return $stmt->fetchAll();
     }
 
+    public function getLogsByOfficer($officerId) {
+        $stmt = $this->db->prepare("
+            SELECT a.*, o.FirstName, o.LastName 
+            FROM AuditLog a 
+            LEFT JOIN Officers o ON a.OfficerID = o.OfficerID 
+            WHERE a.OfficerID = :officer_id
+            ORDER BY a.ActivityID DESC
+        ");
+        $stmt->execute(['officer_id' => $officerId]);
+        return $stmt->fetchAll();
+    }
+
     public function logActivity($officerId, $activity) {
         $sql = "INSERT INTO AuditLog (OfficerID, Activity) VALUES (:officer_id, :activity) RETURNING ActivityID";
         $stmt = $this->db->prepare($sql);

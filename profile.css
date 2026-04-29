@@ -174,60 +174,64 @@ h2.section-title {
     border-color: #ccc;
 }
 
-/* ACTIONS DROPDOWN STYLES */
-.actions-menu {
-    position: relative;
-    display: inline-block;
-}
-
-.dots-btn {
-    background: none;
-    border: 1px solid #ddd;
-    padding: 4px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-    color: #5f6368;
-    font-weight: bold;
-}
-
-.dropdown-action {
-    display: none; /* Hidden by default */
+/* Dropdown Menu */
+.dropdown { position: relative; display: inline-block; }
+.dropdown-menu {
+    display: none;
     position: absolute;
     right: 0;
-    top: 100%;
-    background-color: white;
-    min-width: 140px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    z-index: 100;
-    border-radius: 8px;
-    border: 1px solid #eee;
-    margin-top: 5px;
-    overflow: hidden;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    z-index: 1000;
+    border-radius: 4px;
+    padding: 8px 0;
+    border: 1px solid #ddd;
 }
+.dropdown.show .dropdown-menu { display: block; }
 
-.actions-menu.active .dropdown-action {
-    display: block;
-}
-
-.dropdown-action button {
-    width: 100%;
+.dropdown-item {
     padding: 10px 16px;
-    border: none;
-    background: none;
-    text-align: left;
-    font-size: 13px;
-    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
     color: #3c4043;
+    font-size: 14px;
+    text-align: left;
+    transition: background 0.2s;
+    background: none;
+    border: none;
+    width: 100%;
+    cursor: pointer;
 }
+.dropdown-item .material-symbols-outlined {
+    font-size: 20px;
+}
+.dropdown-item:hover { background-color: #f1f3f4; }
+.dropdown-divider { height: 1px; background-color: #e8eaed; margin: 4px 0; }
 
-.dropdown-action button:hover {
-    background-color: #f8f9fa;
+.action-button.dropdown-toggle {
+    background: none;
+    border: none;
+    color: #5f6368;
+    cursor: pointer;
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
 }
-
-.dropdown-action .delete-btn {
-    color: #d93025;
-    border-top: 1px solid #eee;
+.action-button.dropdown-toggle:hover { 
+    background-color: #f1f3f4;
 }
+.action-button.dropdown-toggle .material-symbols-outlined {
+    font-size: 20px;
+}
+.actions-cell { text-align: center; }
 
 /* =========================================
                  MODAL STYLES 

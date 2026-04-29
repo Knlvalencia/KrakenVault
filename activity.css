@@ -14,46 +14,76 @@
 /* Header Container: Title on left, everything else on right */
 .activity-header-controls {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: flex-start;
     margin-bottom: 24px;
     padding-bottom: 16px;
     border-bottom: 1px solid #eee;
-    gap: 20px; /* Small gap to prevent touching on small screens */
+    gap: 20px;
 }
 
 .activity-header-controls h1 {
     margin: 0;
     font-size: 24px;
     white-space: nowrap;
+    color: #202124;
+    font-weight: 400;
 }
 
-/* This group holds search and filters together */
 .activity-search-group {
     display: flex;
-    gap: 24px;
     align-items: center;
-    flex: 1; 
-    justify-content: flex-end; /* Pushes content to the right */
+    gap: 24px;
+    flex: 1; /* Allow the group to expand */
 }
 
-/* SEARCH BAR: Fixed length logic */
+/* SEARCH BAR STYLING */
+.search-form {
+    flex: 1; /* Stretch the search bar */
+    margin: 0;
+}
+
 .search-wrapper {
     position: relative;
     display: flex;
     align-items: center;
-    /* This keeps it 400px wide even when the window is small */
-    width: 400px; 
-    min-width: 400px; 
+    background-color: #f1f3f4;
+    border-radius: 24px;
+    height: 48px;
+    padding: 0 16px 0 48px !important;
+    transition: background 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+.search-wrapper:focus-within {
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(60,64,67,0.3);
 }
 
 .search-icon {
-    position: absolute;
-    left: 12px;
-    width: 16px;
-    height: 16px;
+    position: absolute !important;
+    left: 16px !important;
+    font-size: 24px !important;
     color: #5f6368;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     pointer-events: none;
+    width: 24px;
+    height: 100%;
+    z-index: 5;
+}
+
+.search-input {
+    border: none !important;
+    background: transparent !important;
+    width: 100% !important;
+    height: 100% !important;
+    font-size: 16px !important;
+    color: #3c4043 !important;
+    outline: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
 }
 
 /* Filters: Grouped on the right */

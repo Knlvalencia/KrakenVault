@@ -13,7 +13,7 @@ require_once __DIR__ . '/components/check_auth.php';
 <head>
     <?php include 'components/head.php'; ?>
     
-    <link rel="stylesheet" href="users.css">
+    <link rel="stylesheet" href="users.css?v=<?= time() ?>">
 </head>
 <body>
     <!-- HEADER START -->
@@ -174,13 +174,12 @@ require_once __DIR__ . '/components/check_auth.php';
                 </div>
                 <!-- END FILTER DROPDOWN MODAL -->
 
-                <div class="search-wrapper">
-                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                    <input type="text" class="search-input with-icon" placeholder="Search by username or id">
-                </div>
+                <form class="search-form">
+                    <div class="search-wrapper">
+                        <span class="material-symbols-outlined search-icon">search</span>
+                        <input type="text" class="search-input" placeholder="Search by name or ID...">
+                    </div>
+                </form>
             </div>
         </div>
         <!-- TITLE AREA END -->
@@ -228,9 +227,20 @@ require_once __DIR__ . '/components/check_auth.php';
                         <td><?= htmlspecialchars($officer['termyear'] ?? 'N/A') ?></td>
                         <td><?= htmlspecialchars($officer['position'] ?? 'N/A') ?></td>
                         <td><span class="status-badge status-active">Active</span></td>
-                        <td style="text-align: center;">
-                            <button class="action-button edit-btn" style="padding: 4px 8px; font-size: 12px; margin-right: 5px;" data-id="<?= $officer['officerid'] ?>">Edit</button>
-                            <button class="action-button delete-btn" style="padding: 4px 8px; font-size: 12px; background: #dc3545; color: white; border: none;" data-id="<?= $officer['officerid'] ?>">Delete</button>
+                        <td class="actions-cell">
+                            <div class="dropdown">
+                                <button class="action-button dropdown-toggle"><span class="material-symbols-outlined">more_vert</span></button>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item edit-btn" data-id="<?= $officer['officerid'] ?>">
+                                        <span class="material-symbols-outlined">edit</span>
+                                        <span>Edit User</span>
+                                    </a>
+                                    <a href="#" class="dropdown-item delete-btn" data-id="<?= $officer['officerid'] ?>">
+                                        <span class="material-symbols-outlined" style="color: #d93025;">delete</span>
+                                        <span style="color: #d93025;">Delete User</span>
+                                    </a>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -261,5 +271,6 @@ require_once __DIR__ . '/components/check_auth.php';
         </div>
         <!-- CONTROL BAR END -->
     </main>
+    <script src="archive.js"></script>
 </body>
 </html>

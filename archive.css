@@ -83,7 +83,7 @@ main.main-content {
 }
 
 .search-form {
-    flex: 0 1 600px; 
+    flex: 1;
     margin: 0; 
 }
 

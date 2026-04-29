@@ -112,6 +112,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
+        // Form Submit Logic (Update PFP visually)
+        const pfpForm = document.getElementById('pfpForm');
+        const currentPfp = document.getElementById('currentPfp');
+        
+        if (pfpForm && currentPfp) {
+            pfpForm.onsubmit = (e) => {
+                e.preventDefault();
+                const file = pfpInput.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        currentPfp.src = e.target.result;
+                        pfpModal.style.display = 'none';
+                        // In a fully integrated app, you would send this file to the server via Fetch/AJAX here
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+        }
+
         // Handle Outside Click
         window.addEventListener('click', (e) => {
             if (e.target === pfpModal) {
@@ -329,44 +349,46 @@ document.addEventListener('DOMContentLoaded', () => {
         return m.innerHTML;
     }
 
-    // Show Options in Dropdown
+    // Show Options in Dropdown (Synchronized with Document Archive style)
     function showActionButtons(row, rowId) {
         const actionCell = document.createElement('td');
-        actionCell.className = "action-cell";
+        actionCell.className = "actions-cell";
 
         const menuDiv = document.createElement('div');
-        menuDiv.className = 'actions-menu';
+        menuDiv.className = 'dropdown';
 
         const triDotsBtn = document.createElement('button');
-        triDotsBtn.className = 'dots-btn';
-        triDotsBtn.textContent = '•••';
+        triDotsBtn.className = 'action-button dropdown-toggle';
+        triDotsBtn.innerHTML = '<span class="material-symbols-outlined">more_vert</span>';
 
         const dropdown = document.createElement('div');
-        dropdown.className = 'dropdown-action';
+        dropdown.className = 'dropdown-menu';
 
-        const editBtn = document.createElement('button');
-        editBtn.type = "button";
-        editBtn.textContent = "Edit Officer";
-        editBtn.className = 'edit-btn';
+        const editBtn = document.createElement('a');
+        editBtn.href = "#";
+        editBtn.className = 'dropdown-item edit-btn';
+        editBtn.innerHTML = '<span class="material-symbols-outlined">edit</span><span>Edit User</span>';
         editBtn.onclick = (e) => {
+            e.preventDefault();
             e.stopPropagation();
             openEditModal(row, rowId);
-            menuDiv.classList.remove('active');
-            menuDiv.classList.remove('dropup')
+            menuDiv.classList.remove('show');
+            menuDiv.classList.remove('dropup');
             if (currentOpenDropdown === menuDiv) {
                 currentOpenDropdown = null;
             }
         };
 
-        const deleteBtn = document.createElement('button');
-        deleteBtn.type = "button";
-        deleteBtn.textContent = "Delete Officer";
-        deleteBtn.className = 'delete-btn';
+        const deleteBtn = document.createElement('a');
+        deleteBtn.href = "#";
+        deleteBtn.className = 'dropdown-item delete-btn';
+        deleteBtn.innerHTML = '<span class="material-symbols-outlined" style="color: #d93025;">delete</span><span style="color: #d93025;">Delete User</span>';
         deleteBtn.onclick = (e) => {
+            e.preventDefault();
             e.stopPropagation();
             const name = JSON.parse(row.getAttribute('data-info')).fullName;
             showDeleteModal(row, name);
-            menuDiv.classList.remove('active');
+            menuDiv.classList.remove('show');
             menuDiv.classList.remove('dropup');
             if (currentOpenDropdown === menuDiv) {
                 currentOpenDropdown = null;
@@ -388,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function adjustDropdown(menuDiv) {
-            const dropdownMenu = menuDiv.querySelector('.dropdown-action');
+            const dropdownMenu = menuDiv.querySelector('.dropdown-menu');
 
             dropdownMenu.style.display = 'block';
             dropdownMenu.style.visibility = 'hidden';
@@ -420,18 +442,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Close other dropdowns if open
             if (currentOpenDropdown && currentOpenDropdown !== menuDiv) {
-                currentOpenDropdown.classList.remove('active');
+                currentOpenDropdown.classList.remove('show');
                 currentOpenDropdown.classList.remove('dropup');
             }
 
             // Toggle current dropdown
-            if (menuDiv.classList.contains('active')) {
-                menuDiv.classList.remove('active');
+            if (menuDiv.classList.contains('show')) {
+                menuDiv.classList.remove('show');
                 menuDiv.classList.remove('dropup');
                 currentOpenDropdown = null;
             } else {
                 adjustDropdown(menuDiv);
-                menuDiv.classList.add('active');
+                menuDiv.classList.add('show');
                 currentOpenDropdown = menuDiv;
             }
         });

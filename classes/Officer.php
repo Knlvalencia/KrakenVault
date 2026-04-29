@@ -60,5 +60,13 @@ class Officer {
             'access_level' => $data['AccessLevel'] ?? 'Member'
         ]);
     }
+
+    public function updateProfilePicture($id, $fileName) {
+        $stmt = $this->db->prepare("UPDATE Officers SET ProfilePicture = :fileName WHERE OfficerID = :id");
+        return $stmt->execute([
+            'id' => $id,
+            'fileName' => $fileName
+        ]);
+    }
 }
 ?>

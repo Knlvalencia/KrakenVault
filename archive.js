@@ -238,4 +238,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // ==========================================
+    // 3. GLOBAL DROPDOWN HANDLER
+    // ==========================================
+    document.addEventListener('click', (e) => {
+        const toggleBtn = e.target.closest('.dropdown-toggle');
+        if (toggleBtn) {
+            e.stopPropagation();
+            const menu = toggleBtn.closest('.dropdown');
+            
+            // Close all other open menus
+            document.querySelectorAll('.dropdown.show').forEach(m => {
+                if (m !== menu) m.classList.remove('show');
+            });
+            
+            menu.classList.toggle('show');
+            return;
+        }
+
+        // Close all menus if clicking outside
+        document.querySelectorAll('.dropdown.show').forEach(m => m.classList.remove('show'));
+    });
 });

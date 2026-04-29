@@ -11,7 +11,48 @@ $activePage = 'activity';
 <html lang="en">
 <head>
     <?php include 'components/head.php'; ?>
-    <link rel="stylesheet" href="activity.css">
+    <link rel="stylesheet" href="activity.css?v=<?php echo time(); ?>">
+    <style>
+        .activity-search-group {
+            margin-left: auto !important;
+            flex: 0 1 auto !important;
+        }
+        .search-form {
+            width: 400px !important;
+            flex: 0 0 400px !important;
+        }
+        .search-wrapper {
+            background-color: #f1f3f4 !important;
+            border-radius: 24px !important;
+            height: 48px !important;
+            padding: 0 16px 0 48px !important;
+            display: flex !important;
+            align-items: center !important;
+            position: relative !important;
+            transition: background 0.2s, box-shadow 0.2s !important;
+        }
+        .search-wrapper:focus-within {
+            background-color: #fff !important;
+            box-shadow: 0 1px 3px rgba(60,64,67,0.3) !important;
+        }
+        .search-icon {
+            position: absolute !important;
+            left: 16px !important;
+            font-size: 24px !important;
+            color: #5f6368 !important;
+            pointer-events: none !important;
+        }
+        .search-input {
+            border: none !important;
+            background: transparent !important;
+            width: 100% !important;
+            height: 100% !important;
+            font-size: 16px !important;
+            outline: none !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+        }
+    </style>
 </head>
 <body>
     <?php include 'components/header.php'; ?>
@@ -19,13 +60,12 @@ $activePage = 'activity';
         <div class="activity-header-controls">
             <h1>Activity Log</h1>
             <div class="activity-search-group">
-                <div class="search-wrapper">
-                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                    <input type="text" class="search-input with-icon" placeholder="Search Activity...">
-                </div>
+                <form class="search-form">
+                    <div class="search-wrapper">
+                        <span class="material-symbols-outlined search-icon">search</span>
+                        <input type="text" class="search-input" placeholder="Search Activity...">
+                    </div>
+                </form>
             
                 <div class="filter_btn">
                     <div class="filter-by-user">
