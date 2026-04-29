@@ -31,11 +31,12 @@ class AuditLog {
     }
 
     public function logActivity($officerId, $activity) {
-        $sql = "INSERT INTO AuditLog (OfficerID, Activity) VALUES (:officer_id, :activity) RETURNING ActivityID";
+        $sql = "INSERT INTO AuditLog (OfficerID, Activity, ActivityDate, ActivityTime) 
+                VALUES (:officer_id, :activity, CURRENT_DATE, CURRENT_TIME) RETURNING ActivityID";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             'officer_id' => $officerId,
-            'activity' => $activity
+            'activity'   => $activity
         ]);
         return $stmt->fetchColumn();
     }

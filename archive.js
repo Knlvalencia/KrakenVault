@@ -232,7 +232,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 navLinks.forEach(l => l.classList.remove('active'));
                 link.classList.add('active');
-                currentFilter = link.textContent.trim();
+                // Read text from the label span, not the full anchor (which includes icon text)
+                const labelSpan = link.querySelector('span:last-child');
+                currentFilter = labelSpan ? labelSpan.textContent.trim() : link.textContent.trim();
                 if (headerTitle) headerTitle.textContent = currentFilter;
                 applyFilters();
             });

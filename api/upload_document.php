@@ -61,6 +61,11 @@ try {
     $docModel = new DocumentArchive();
     $newId = $docModel->createDocument($docData);
 
+    // Log the upload activity
+    require_once __DIR__ . '/../classes/AuditLog.php';
+    $auditLog = new AuditLog();
+    $auditLog->logActivity($_SESSION['officer_id'], 'Uploaded document: ' . $customName);
+
     $responseData = $docData;
     $responseData['DocumentID'] = $newId;
     $responseData['UploadDate'] = date('Y-m-d H:i:s');

@@ -129,10 +129,10 @@ $activePage = 'archive';
                 <table class="file-table">
                     <thead>
                         <tr>
-                            <th>NAME</th>
-                            <th>CATEGORY</th>
-                            <th>LAST MODIFIED</th>
-                            <th>OWNER</th>
+                            <th style="width: 35%;">NAME</th>
+                            <th style="width: 20%;">CATEGORY</th>
+                            <th style="width: 18%;">LAST MODIFIED</th>
+                            <th style="width: 18%;">OWNER</th>
                             <th style="width: 50px;"></th>
                         </tr>
                     </thead>
@@ -158,7 +158,18 @@ $activePage = 'archive';
                             <tr class="file-row" data-type="<?= htmlspecialchars($doc['documenttype'] ?? '') ?>" data-category="<?= htmlspecialchars($doc['category'] ?? '') ?>" data-info='<?= htmlspecialchars($fileInfo, ENT_QUOTES, 'UTF-8') ?>'>
                                 <td data-label="Name">
                                     <div style="display: flex; align-items: center; gap: 10px;">
-                                        <span class="material-symbols-outlined" style="color: #5f6368;">description</span>
+                                        <?php
+                                            $ext = strtolower(pathinfo($doc['documentfilepath'] ?? '', PATHINFO_EXTENSION));
+                                            $iconMap = [
+                                                'pdf'  => ['picture_as_pdf', '#d93025'],
+                                                'doc'  => ['article',        '#1a73e8'],
+                                                'docx' => ['article',        '#1a73e8'],
+                                                'xls'  => ['table_chart',    '#188038'],
+                                                'xlsx' => ['table_chart',    '#188038'],
+                                            ];
+                                            [$icon, $color] = $iconMap[$ext] ?? ['description', '#5f6368'];
+                                        ?>
+                                        <span class="material-symbols-outlined" style="color: <?= $color ?>;"><?= $icon ?></span>
                                         <?= htmlspecialchars($doc['documentname']) ?>
                                     </div>
                                 </td>
