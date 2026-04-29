@@ -1,4 +1,9 @@
 <?php 
+session_start();
+if (isset($_SESSION['officer_id'])) {
+    header("Location: documentarchive.php");
+    exit();
+}
 $pageTitle = 'Login - Kraken Vault'; 
 ?>
 <!DOCTYPE html>

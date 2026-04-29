@@ -16,7 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($officerId) {
         // Login successful
-        $_SESSION['officer_id'] = $officerId;
+        require_once __DIR__ . '/classes/Officer.php';
+        $officerModel = new Officer();
+        $officer = $officerModel->getOfficerById($officerId);
+
+        $_SESSION['officer_id']       = $officerId;
+        $_SESSION['profile_picture']  = $officer['profilepicture'] ?? null;
+        $_SESSION['officer_name']     = $officer['firstname'] ?? 'User';
         // Redirect to Document Archive as default authenticated page
         header("Location: documentarchive.php");
         exit();

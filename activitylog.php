@@ -91,13 +91,14 @@ $activePage = 'activity';
                 </div> 
             </div>
         </div>
-        <table class="file-table">
+        <table class="file-table" style="width: 100%;">
             <thead>
                 <tr>
-                    <th>Date and Time</th>
-                    <th>Account</th>
-                    <th>User</th>
-                    <th>Activity ID</th> <th>Actions</th>
+                    <th style="width: 25%; text-align: left; padding: 12px 15px;">Date and Time</th>
+                    <th style="width: 20%; text-align: left; padding: 12px 15px;">Account</th>
+                    <th style="width: 20%; text-align: left; padding: 12px 15px;">User</th>
+                    <th style="width: 10%; text-align: left; padding: 12px 15px;">Activity ID</th>
+                    <th style="width: 25%; text-align: left; padding: 12px 15px;">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -106,26 +107,51 @@ $activePage = 'activity';
                     <td colspan="5" style="text-align: center; color: #666;"><strong>NO ACTIVITIES YET!</strong></td>
                 </tr>
                 <?php else: ?>
-                    <?php foreach ($logs as $log): ?>
+                    <?php foreach ($logs as $log): 
+                        $activityText = $log['activity'];
+                        $icon = 'info';
+                        $color = '#5f6368'; // Default gray
+
+                        if (stripos($activityText, 'upload') !== false || stripos($activityText, 'add') !== false) {
+                            $icon = 'add_circle';
+                            $color = '#188038'; // Green
+                        } elseif (stripos($activityText, 'delete') !== false || stripos($activityText, 'remove') !== false) {
+                            $icon = 'delete';
+                            $color = '#d93025'; // Red
+                        } elseif (stripos($activityText, 'update') !== false || stripos($activityText, 'edit') !== false) {
+                            $icon = 'edit';
+                            $color = '#e37400'; // Orange
+                        } elseif (stripos($activityText, 'download') !== false) {
+                            $icon = 'download';
+                            $color = '#1a73e8'; // Blue
+                        } elseif (stripos($activityText, 'login') !== false) {
+                            $icon = 'login';
+                            $color = '#00796b'; // Teal
+                        } elseif (stripos($activityText, 'logout') !== false) {
+                            $icon = 'logout';
+                            $color = '#5f6368'; // Gray
+                        }
+                    ?>
                     <tr>
-                        <td data-label="Date and Time"><?= htmlspecialchars($log['activitydate'] . ' ' . $log['activitytime']) ?></td>
-                        <td data-label="Account"> 
+                        <td data-label="Date and Time" style="font-size: 13px; color: #5f6368; padding: 12px 15px;"><?= htmlspecialchars($log['activitydate'] . ' ' . $log['activitytime']) ?></td>
+                        <td data-label="Account" style="padding: 12px 15px;"> 
                             <div class="td-content">
                                 <a href="#" class="primary-text link"><?= htmlspecialchars($log['firstname'] . ' ' . $log['lastname']) ?></a>
                                 <span class="secondary-text">User ID: <?= htmlspecialchars($log['officerid']) ?></span>
                             </div>
                         </td>
-                        <td data-label="User">
+                        <td data-label="User" style="padding: 12px 15px;">
                             <div class="td-content">
                                 <strong class="primary-text"><?= htmlspecialchars($log['firstname'] . ' ' . $log['lastname']) ?></strong>
                             </div>
                         </td>
-                        <td data-label="Activity ID">
-                            <span class="primary-text" style="font-family: monospace;"><?= htmlspecialchars($log['activityid']) ?></span>
+                        <td data-label="Activity ID" style="padding: 12px 15px;">
+                            <span class="primary-text" style="font-family: monospace; font-size: 13px;"><?= htmlspecialchars($log['activityid']) ?></span>
                         </td>
-                        <td data-label="Actions">
-                            <div class="td-content">
-                                <span><?= htmlspecialchars($log['activity']) ?></span>
+                        <td data-label="Actions" style="padding: 12px 15px;">
+                            <div class="td-content" style="display: flex; flex-direction: row; align-items: center; gap: 8px; color: <?= $color ?>;">
+                                <span class="material-symbols-outlined" style="font-size: 20px; flex-shrink: 0;"><?= $icon ?></span>
+                                <span style="font-weight: 500; font-size: 13px;"><?= htmlspecialchars($activityText) ?></span>
                             </div>
                         </td>
                     </tr>

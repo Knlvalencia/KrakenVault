@@ -198,7 +198,12 @@ $activePage = 'profile';
     <main class="profile-content">
         <section class="profile-container">
             <div class="profile-pic-wrapper">
-                <img src="pfp.png" alt="Profile Picture" class="profile-pic-large" id="currentPfp">
+                <?php
+                    $pfpSrc = !empty($officer['profilepicture'])
+                        ? 'uploads/profiles/' . htmlspecialchars($officer['profilepicture'])
+                        : 'pfp.png';
+                ?>
+                <img src="<?= $pfpSrc ?>" alt="Profile Picture" class="profile-pic-large" id="currentPfp">
                 <button class="edit-pfp-btn" title="Change Profile Picture"><i>📷</i></button>
             </div>
             <div class="user-details">
@@ -280,8 +285,8 @@ $activePage = 'profile';
             <table class="file-table">
                 <thead>
                     <tr>
-                        <th>Date and Time</th>
-                        <th>Action</th>
+                        <th style="width: 30%;">Date and Time</th>
+                        <th style="width: 70%;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -290,10 +295,39 @@ $activePage = 'profile';
                         <td colspan="2" style="text-align:center; color:#888; padding:24px;">No recent activity.</td>
                     </tr>
                     <?php else: ?>
-                    <?php foreach ($activity as $log): ?>
+                    <?php foreach ($activity as $log): 
+                        $activityText = $log['activity'] ?? 'N/A';
+                        $icon = 'info';
+                        $color = '#5f6368';
+
+                        if (stripos($activityText, 'upload') !== false || stripos($activityText, 'add') !== false) {
+                            $icon = 'add_circle';
+                            $color = '#188038';
+                        } elseif (stripos($activityText, 'delete') !== false || stripos($activityText, 'remove') !== false) {
+                            $icon = 'delete';
+                            $color = '#d93025';
+                        } elseif (stripos($activityText, 'update') !== false || stripos($activityText, 'edit') !== false) {
+                            $icon = 'edit';
+                            $color = '#e37400';
+                        } elseif (stripos($activityText, 'download') !== false) {
+                            $icon = 'download';
+                            $color = '#1a73e8';
+                        } elseif (stripos($activityText, 'login') !== false) {
+                            $icon = 'login';
+                            $color = '#00796b';
+                        } elseif (stripos($activityText, 'logout') !== false) {
+                            $icon = 'logout';
+                            $color = '#5f6368';
+                        }
+                    ?>
                     <tr>
                         <td data-label="Date and Time"><?= htmlspecialchars(($log['activitydate'] ?? '') . ' ' . ($log['activitytime'] ?? '')) ?></td>
-                        <td data-label="Action"><?= htmlspecialchars($log['activity'] ?? 'N/A') ?></td>
+                        <td data-label="Action">
+                            <div style="display: flex; align-items: center; gap: 8px; color: <?= $color ?>;">
+                                <span class="material-symbols-outlined" style="font-size: 20px;"><?= $icon ?></span>
+                                <span style="font-weight: 500;"><?= htmlspecialchars($activityText) ?></span>
+                            </div>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                     <?php endif; ?>
@@ -441,6 +475,65 @@ $activePage = 'profile';
             pendingDeleteId  = null;
             pendingDeleteRow = null;
         });
+
+        // ── Profile Picture Upload ───────────────────────────────
+        const pfpForm      = $('pfpForm');
+        const pfpInput     = $('pfpInput');
+        const imagePreview = $('imagePreview');
+        const currentPfp   = $('currentPfp');
+        const editPfpBtn   = document.querySelector('.edit-pfp-btn');
+        const headerIcon   = document.getElementById('headerProfileIcon');
+
+        if (editPfpBtn) editPfpBtn.addEventListener('click', () => openModal('pfpModal'));
+
+        if (pfpInput) {
+            pfpInput.addEventListener('change', () => {
+                const file = pfpInput.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = e => {
+                        imagePreview.innerHTML = `<img src="${e.target.result}" style="max-width:100%;max-height:200px;border-radius:8px;">`;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        if (pfpForm) {
+            pfpForm.addEventListener('submit', async e => {
+                e.preventDefault();
+                const file = pfpInput.files[0];
+                if (!file) return;
+
+                const submitBtn = pfpForm.querySelector('[type="submit"]');
+                submitBtn.textContent = 'Saving...';
+                submitBtn.disabled = true;
+
+                const formData = new FormData();
+                formData.append('profilePicture', file);
+
+                try {
+                    const res  = await fetch('api/upload_pfp.php', { method: 'POST', body: formData });
+                    const data = await res.json();
+
+                    if (data.success) {
+                        const newSrc = 'uploads/profiles/' + data.fileName + '?v=' + Date.now();
+                        if (currentPfp) currentPfp.src = newSrc;
+                        if (headerIcon) headerIcon.src = newSrc;
+                        closeModal('pfpModal');
+                        pfpForm.reset();
+                        imagePreview.innerHTML = '<span>No file selected</span>';
+                    } else {
+                        alert('Upload failed: ' + data.message);
+                    }
+                } catch (err) {
+                    alert('Request failed: ' + err);
+                } finally {
+                    submitBtn.textContent = 'Save Changes';
+                    submitBtn.disabled = false;
+                }
+            });
+        }
 
     });
     </script>

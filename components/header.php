@@ -21,7 +21,20 @@
             </a>
         </nav>
     </div>
-    <a href="userprofile.php" class="profile-area">
-        <img src="pfp.png" alt="Profile" class="profile-icon">
-    </a>
+    <div class="header-right">
+        <span class="header-welcome">
+            Welcome, <strong><?= htmlspecialchars($_SESSION['officer_name'] ?? 'User') ?></strong>
+        </span>
+        <a href="userprofile.php" class="profile-area">
+            <?php
+                $headerPfp = !empty($_SESSION['profile_picture'])
+                    ? 'uploads/profiles/' . htmlspecialchars($_SESSION['profile_picture'])
+                    : 'pfp.png';
+            ?>
+            <img src="<?= $headerPfp ?>" alt="Profile" class="profile-icon" id="headerProfileIcon">
+        </a>
+        <a href="logout.php" class="logout-btn" title="Logout">
+            <span class="material-symbols-outlined">logout</span>
+        </a>
+    </div>
 </header>

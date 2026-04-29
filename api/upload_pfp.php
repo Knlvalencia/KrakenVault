@@ -27,6 +27,15 @@ try {
         mkdir($uploadDir, 0777, true);
     }
 
+    // Delete old profile picture file if one exists
+    $oldPicture = $_SESSION['profile_picture'] ?? null;
+    if ($oldPicture) {
+        $oldPath = $uploadDir . $oldPicture;
+        if (file_exists($oldPath)) {
+            unlink($oldPath);
+        }
+    }
+
     $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
     $newFileName = 'user_' . $_SESSION['officer_id'] . '_' . time() . '.' . $extension;
     $destination = $uploadDir . $newFileName;
@@ -37,6 +46,9 @@ try {
 
     $officerModel = new Officer();
     $officerModel->updateProfilePicture($_SESSION['officer_id'], $newFileName);
+
+    // Update session so header avatar reflects immediately
+    $_SESSION['profile_picture'] = $newFileName;
 
     echo json_encode(['success' => true, 'fileName' => $newFileName, 'message' => 'Profile picture updated successfully']);
 } catch (Exception $e) {
