@@ -118,6 +118,7 @@
                     <div class="filter-field-group">
                         <label> Role: </label>
                         <select id="filterRole">
+                            <option value="allRoles"> All Roles </option>
                             <option value="PLACEHOLDER 1"> PLACEHOLDER 1</option>
                             <option value="PLACEHOLDER 2"> PLACEHOLDER 2</option>
                         </select>
@@ -125,14 +126,15 @@
                     <div class="filter-field-group">
                         <label> Status: </label>
                         <select id="filterStatus">
+                            <option value="allStatus"> All Status </option>
                             <option value="active"> Active </option>
                             <option value="inactive"> Inactive </option>
                         </select>
                     </div>
                     <div class="filter-field-group">
-                        <label> Year: </label>
+                        <label> Term Year: </label>
                         <select id="filterYear">
-                            <option value="any"> Any time </option>
+                            <option value="allTime"> Any time </option>
                             <option value="present"> Since 2026 - present </option>
                             <option value="previous-year"> Since 2025 - 2026 </option>
                             <option value="last-previous-year"> Since 2024 - 2025</option>
@@ -140,9 +142,9 @@
                         </select>
                         <div id="customYearRange" class="custom-year-range">
                             <div class="range-row">
-                                <input type="number" name="yearFrom" placeholder="From...">
+                                <input type="number" id="yearFrom" name="yearFrom" placeholder="From...">
                                 <span>-</span>
-                                <input type="number" name="yearTo" placeholder="To...">
+                                <input type="number" id="yearTo" name="yearTo" placeholder="To...">
                             </div>
                         </div>
                     </div>
@@ -150,9 +152,9 @@
                         <label> Sort by: </label>
                         <div class="sort-row">
                             <select id="sortType">
-                                <option value="first-message"> Name</option>
-                                <option value="name"> Date Assumed </option>
-                                <option value="studentId"> Year Level </option>
+                                <option value="name"> Name</option>
+                                <option value="dateAssumed"> Date Assumed </option>
+                                <option value="yearLevel"> Year Level </option>
                             </select>
                             <select id="sortOrder">
                                 <option value="asc"> Ascending </option>
