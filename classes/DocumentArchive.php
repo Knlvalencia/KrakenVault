@@ -9,27 +9,43 @@ class DocumentArchive {
     }
 
     public function getAllDocuments() {
-        $stmt = $this->db->query("SELECT * FROM DocumentArchive ORDER BY DocumentID DESC");
+        $stmt = $this->db->query("
+            SELECT d.*, o.FirstName, o.LastName 
+            FROM DocumentArchive d 
+            LEFT JOIN Officers o ON CAST(NULLIF(d.OfficerInCharge, '') AS INTEGER) = o.OfficerID 
+            ORDER BY d.DocumentID DESC
+        ");
         return $stmt->fetchAll();
     }
 
     public function createDocument($data) {
-        $sql = "INSERT INTO DocumentArchive (ApprovalID, DocumentName, DocumentDescription, VersionNumber, DocumentFilePath, DocumentType, Category, OfficerInCharge, AssociatedEvent, TermYear) 
-                VALUES (:approval_id, :document_name, :document_description, :version_number, :document_file_path, :document_type, :category, :officer_in_charge, :associated_event, :term_year) RETURNING DocumentID";
+        $sql = "INSERT INTO DocumentArchive (DocumentName, Category, DocumentType, DocumentFilePath, OfficerInCharge, FileSize) 
+                VALUES (:document_name, :category, :document_type, :document_file_path, :officer_in_charge, :file_size) RETURNING DocumentID";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
-            'approval_id' => $data['ApprovalID'] ?? null,
             'document_name' => $data['DocumentName'],
-            'document_description' => $data['DocumentDescription'] ?? null,
-            'version_number' => $data['VersionNumber'] ?? null,
-            'document_file_path' => $data['DocumentFilePath'] ?? null,
-            'document_type' => $data['DocumentType'] ?? null,
             'category' => $data['Category'] ?? 'Internal',
+            'document_type' => $data['DocumentType'] ?? null,
+            'document_file_path' => $data['DocumentFilePath'],
             'officer_in_charge' => $data['OfficerInCharge'] ?? null,
-            'associated_event' => $data['AssociatedEvent'] ?? null,
-            'term_year' => $data['TermYear'] ?? null
+            'file_size' => $data['FileSize'] ?? null
         ]);
         return $stmt->fetchColumn();
+    }
+
+    public function deleteDocument($id) {
+        // First get the file path to delete it from storage
+        $stmt = $this->db->prepare("SELECT DocumentFilePath FROM DocumentArchive WHERE DocumentID = :id");
+        $stmt->execute(['id' => $id]);
+        $filePath = $stmt->fetchColumn();
+
+        if ($filePath && file_exists(__DIR__ . '/../' . $filePath)) {
+            unlink(__DIR__ . '/../' . $filePath);
+        }
+
+        $sql = "DELETE FROM DocumentArchive WHERE DocumentID = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute(['id' => $id]);
     }
 }
 ?>

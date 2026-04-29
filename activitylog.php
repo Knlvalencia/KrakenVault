@@ -1,4 +1,5 @@
 <?php 
+require_once __DIR__ . '/components/check_auth.php'; 
 require_once __DIR__ . '/classes/AuditLog.php';
 $auditModel = new AuditLog();
 $logs = $auditModel->getAllLogs();

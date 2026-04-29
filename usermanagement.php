@@ -1,4 +1,5 @@
 <?php 
+require_once __DIR__ . '/components/check_auth.php';
     require_once __DIR__ . '/classes/Officer.php';
     $officerModel = new Officer();
     $officers = $officerModel->getAllOfficers();

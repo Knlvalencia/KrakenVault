@@ -15,6 +15,7 @@ try {
     $lastName = isset($parts[1]) ? $parts[1] : '';
 
     $officerData = [
+        'StudentID' => $data['studentId'] ?? null,
         'FirstName' => $firstName,
         'LastName' => $lastName,
         'Age' => $data['age'] ? (int)$data['age'] : null,

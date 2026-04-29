@@ -1,4 +1,5 @@
 <?php 
+require_once __DIR__ . '/components/check_auth.php';
 require_once __DIR__ . '/classes/DocumentArchive.php';
 $documentModel = new DocumentArchive();
 $documents = $documentModel->getAllDocuments();
@@ -10,8 +11,8 @@ $activePage = 'archive';
 <html lang="en">
 <head>
     <?php include 'components/head.php'; ?>
-    <link rel="stylesheet" href="archive.css">
-    <script src="archive.js"></script>
+    <link rel="stylesheet" href="archive.css?v=<?= time() ?>">
+    <script src="archive.js?v=<?= time() ?>"></script>
 </head>
 
 
@@ -26,17 +27,17 @@ $activePage = 'archive';
         <!-- SIDE BAR START -->
 
         <aside class="sidebar">
-            <button class="new-button"><span class="plus">+</span> New</button>
+            <button class="new-button"><span class="material-symbols-outlined">add</span> New</button>
             <nav class="nav-links">
-                <a href="#" class="all-documents"><strong>All Documents</strong></a>
-                <a href="#">Financial Reports</a>
-                <a href="#">Meeting Minutes</a>
-                <a href="#">Canvassing Files</a>
-                <a href="#">Project Proposals</a>
-                <a href="#">Resolutions</a>
-                <a href="#">Official Memorandums</a>
-                <a href="#">Official Letters</a>
-                <a href="#">Miscellaneous</a>
+                <a href="#" class="all-documents active"><span class="material-symbols-outlined">grid_view</span> <span>All Documents</span></a>
+                <a href="#"><span class="material-symbols-outlined">description</span> <span>Financial Reports</span></a>
+                <a href="#"><span class="material-symbols-outlined">groups</span> <span>Meeting Minutes</span></a>
+                <a href="#"><span class="material-symbols-outlined">inventory_2</span> <span>Canvassing Files</span></a>
+                <a href="#"><span class="material-symbols-outlined">assignment</span> <span>Project Proposals</span></a>
+                <a href="#"><span class="material-symbols-outlined">gavel</span> <span>Resolutions</span></a>
+                <a href="#"><span class="material-symbols-outlined">campaign</span> <span>Official Memorandums</span></a>
+                <a href="#"><span class="material-symbols-outlined">mail</span> <span>Official Letters</span></a>
+                <a href="#"><span class="material-symbols-outlined">more_horiz</span> <span>Miscellaneous</span></a>
             </nav>
         </aside>
         <!-- SIDE BAR END -->
@@ -60,15 +61,29 @@ $activePage = 'archive';
                     
                     <div class="form-group">
                         <label>File Name</label>
-                        <input type="text" id="fileName" placeholder="Enter custom name..." required>
+                        <input type="text" id="fileName" name="fileName" placeholder="Enter custom name..." required>
                     </div>
                     <div class="form-group">
-                        <label>Category</label>
-                        <select id="docCategory" required>
-                            <option value="" disabled selected>Select Category</option>
+                        <label>Document Type</label>
+                        <select id="docCategory" name="docCategory" required>
+                            <option value="" disabled selected>Select Type</option>
                             <option value="Financial Reports">Financial Reports</option>
                             <option value="Meeting Minutes">Meeting Minutes</option>
+                            <option value="Canvassing Files">Canvassing Files</option>
                             <option value="Project Proposals">Project Proposals</option>
+                            <option value="Resolutions">Resolutions</option>
+                            <option value="Official Memorandums">Official Memorandums</option>
+                            <option value="Official Letters">Official Letters</option>
+                            <option value="Miscellaneous">Miscellaneous</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Security Category</label>
+                        <select id="securityCategory" name="securityCategory" required>
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="Internal">Internal</option>
+                            <option value="External">External</option>
+                            <option value="Confidential">Confidential</option>
                         </select>
                     </div>
                     <div class="modal-footer">
@@ -88,16 +103,22 @@ $activePage = 'archive';
                 
                 <form class="search-form">
                     <div class="search-wrapper">
-                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
+                        <span class="material-symbols-outlined search-icon">search</span>
                         <input type="text" class="search-input with-icon" placeholder="Search Drive...">
                     </div>
                 </form>
 
                 <div class="view-controls">
-                    <button class="view-button">View Details</button>
+                    <button class="icon-button" title="List View">
+                        <span class="material-symbols-outlined">view_list</span>
+                    </button>
+                    <button class="icon-button" title="Settings">
+                        <span class="material-symbols-outlined">settings</span>
+                    </button>
+                    <button class="view-details-btn">
+                        <span class="material-symbols-outlined">info</span>
+                        <span>View Details</span>
+                    </button>
                 </div>
             </header>
             <!-- TOP BAR END -->
@@ -112,23 +133,57 @@ $activePage = 'archive';
                             <th>CATEGORY</th>
                             <th>LAST MODIFIED</th>
                             <th>OWNER</th>
-                            <th style="width: 100px; text-align: center;">ACTIONS</th>
+                            <th style="width: 50px;"></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="documentTableBody">
                         <?php if (empty($documents)): ?>
-                        <tr>
+                        <tr class="empty-row">
                             <td colspan="5" style="text-align: center; color: #666;"><strong>NO DOCUMENTS YET!</strong></td>
                         </tr>
                         <?php else: ?>
-                            <?php foreach ($documents as $doc): ?>
-                            <tr onclick="showPreview('<?= htmlspecialchars($doc['documentname']) ?>', '<?= htmlspecialchars($doc['category']) ?>', '<?= htmlspecialchars($doc['creationdate']) ?>', '<?= htmlspecialchars($doc['officerincharge']) ?>')">
-                                <td data-label="Name"><div class="file-icon"></div> <?= htmlspecialchars($doc['documentname']) ?></td>
+                            <?php foreach ($documents as $doc): 
+                                $fileSize = isset($doc['filesize']) ? round($doc['filesize'] / 1024, 2) . ' KB' : 'N/A';
+                                $fileInfo = json_encode([
+                                    'id' => $doc['documentid'],
+                                    'name' => $doc['documentname'],
+                                    'category' => $doc['category'],
+                                    'type' => $doc['documenttype'],
+                                    'modified' => date('M d, Y', strtotime($doc['creationdate'])),
+                                    'owner' => $doc['lastname'] ?? 'N/A',
+                                    'path' => $doc['documentfilepath'],
+                                    'size' => $fileSize
+                                ]);
+                            ?>
+                            <tr class="file-row" data-type="<?= htmlspecialchars($doc['documenttype'] ?? '') ?>" data-category="<?= htmlspecialchars($doc['category'] ?? '') ?>" data-info='<?= htmlspecialchars($fileInfo, ENT_QUOTES, 'UTF-8') ?>'>
+                                <td data-label="Name">
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <span class="material-symbols-outlined" style="color: #5f6368;">description</span>
+                                        <?= htmlspecialchars($doc['documentname']) ?>
+                                    </div>
+                                </td>
                                 <td data-label="Category"><?= htmlspecialchars($doc['category']) ?></td>
-                                <td data-label="Last modified"><?= htmlspecialchars($doc['creationdate']) ?></td>
-                                <td data-label="Owner"><?= htmlspecialchars($doc['officerincharge']) ?></td>
-                                <td class="actions-cell" data-label="Actions">
-                                    <button class="action-button view">...</button>
+                                <td data-label="Last modified"><?= htmlspecialchars(date('M d, Y', strtotime($doc['creationdate']))) ?></td>
+                                <td data-label="Owner"><?= htmlspecialchars($doc['lastname'] ?? 'N/A') ?></td>
+                                <td class="actions-cell">
+                                    <div class="dropdown">
+                                        <button class="action-button dropdown-toggle"><span class="material-symbols-outlined">more_vert</span></button>
+                                        <div class="dropdown-menu">
+                                            <a href="<?= htmlspecialchars($doc['documentfilepath']) ?>" download class="dropdown-item">
+                                                <span class="material-symbols-outlined">download</span>
+                                                <span>Download</span>
+                                            </a>
+                                            <a href="#" class="dropdown-item edit-doc">
+                                                <span class="material-symbols-outlined">edit</span>
+                                                <span>Edit</span>
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a href="#" class="dropdown-item delete-doc" data-id="<?= $doc['documentid'] ?>" data-name="<?= htmlspecialchars($doc['documentname']) ?>">
+                                                <span class="material-symbols-outlined" style="color: #d93025;">delete</span>
+                                                <span style="color: #d93025;">Delete</span>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -146,9 +201,12 @@ $activePage = 'archive';
                 <h3>File Details</h3>
                 <button class="close-preview">×</button>
             </div>
-            <div class="preview-thumbnail"><span>Preview</span></div>
+            <div class="preview-thumbnail">
+                <span class="material-symbols-outlined" style="font-size: 64px; color: #dadce0;">description</span>
+            </div>
             <div class="preview-details">
                 <p><strong>Category:</strong> <span>-</span></p>
+                <p><strong>Type:</strong> <span>-</span></p>
                 <p><strong>Modified:</strong> <span>-</span></p>
                 <p><strong>Owner:</strong> <span>-</span></p>
                 <p><strong>Size:</strong> <span>-</span></p>

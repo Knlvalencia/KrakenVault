@@ -1,4 +1,5 @@
 <?php 
+require_once __DIR__ . '/components/check_auth.php'; 
 $pageTitle = 'Profile'; 
 $activePage = 'profile'; 
 ?>

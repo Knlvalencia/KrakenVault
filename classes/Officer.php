@@ -20,10 +20,11 @@ class Officer {
     }
 
     public function createOfficer($data) {
-        $sql = "INSERT INTO Officers (FirstName, LastName, Age, ContactNumber, Course, YearLevel, Position, DateAssumed, DateEnded, TermYear, AccessLevel) 
-                VALUES (:first_name, :last_name, :age, :contact_number, :course, :year_level, :position, :date_assumed, :date_ended, :term_year, :access_level) RETURNING OfficerID";
+        $sql = "INSERT INTO Officers (StudentID, FirstName, LastName, Age, ContactNumber, Course, YearLevel, Position, DateAssumed, DateEnded, TermYear, AccessLevel) 
+                VALUES (:student_id, :first_name, :last_name, :age, :contact_number, :course, :year_level, :position, :date_assumed, :date_ended, :term_year, :access_level) RETURNING OfficerID";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
+            'student_id' => $data['StudentID'] ?? null,
             'first_name' => $data['FirstName'],
             'last_name' => $data['LastName'],
             'age' => $data['Age'] ?? null,
@@ -41,12 +42,13 @@ class Officer {
 
     public function updateOfficer($id, $data) {
         $sql = "UPDATE Officers SET 
-                FirstName = :first_name, LastName = :last_name, Age = :age, ContactNumber = :contact_number, 
+                StudentID = :student_id, FirstName = :first_name, LastName = :last_name, Age = :age, ContactNumber = :contact_number, 
                 Course = :course, YearLevel = :year_level, Position = :position, TermYear = :term_year, AccessLevel = :access_level
                 WHERE OfficerID = :id";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
             'id' => $id,
+            'student_id' => $data['StudentID'] ?? null,
             'first_name' => $data['FirstName'],
             'last_name' => $data['LastName'],
             'age' => $data['Age'] ?? null,

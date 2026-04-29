@@ -98,18 +98,26 @@ header.kraken-header {
 }
 
 .nav-menu a {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 15px;
     color: #333;
     text-decoration: none;
     font-size: 14px;
-    opacity: 0.7;
-    transition: all 0.4s ease;
-    padding: 20px 15px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    padding: 15px 20px;
     border-bottom: 1px solid #eeeeee;
 }
 
-.nav-menu a:hover { opacity: 1.0; background-color: #fcfcfc; }
-.nav-menu a.active { opacity: 1.0; font-weight: bold; background-color: #f4e4ff; }
+.nav-menu a .material-symbols-outlined {
+    font-size: 22px;
+    color: #5f6368;
+}
+
+.nav-menu a:hover { opacity: 1.0; background-color: #f8f9fa; }
+.nav-menu a.active { opacity: 1.0; font-weight: bold; background-color: #f4e4ff; color: #49154a; }
+.nav-menu a.active .material-symbols-outlined { color: #49154a; }
 
 /* UNIVERSAL COMPONENT: ACTION BUTTONS */
 .action-button { 
@@ -167,43 +175,7 @@ header.kraken-header {
 .actions-cell { text-align: center; }
 
 
-/* UNIVERSAL SEARCH BAR */
-
-
-.search-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-.search-icon {
-    position: absolute;
-    left: 12px;
-    width: 16px;
-    height: 16px;
-    color: #5f6368;
-    pointer-events: none;
-    z-index: 2;
-}
-
-.search-input.with-icon {
-    width: 100%;
-    background-color: #f1f3f4; /* Light grey background */
-    border: 1px solid transparent;
-    border-radius: 8px; /* Rounded corners */
-    height: 40px;
-    padding-left: 36px;
-    font-size: 14px;
-    transition: background 0.2s, border 0.2s;
-}
-
-.search-input.with-icon:focus {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    outline: none;
-    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-}
+/* UNIVERSAL SEARCH BAR BASELINE - Handled per-page */
 
 /* =========================================
    UNIVERSAL MOBILE RESPONSIVENESS 

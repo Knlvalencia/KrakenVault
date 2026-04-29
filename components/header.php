@@ -7,9 +7,18 @@
         </button>
         <img src="logo.png" alt="logo" class="logo">
         <nav class="nav-menu">
-            <a href="documentarchive.php" class="<?php echo ($activePage == 'archive') ? 'active' : ''; ?>">Document Archive</a>
-            <a href="activitylog.php" class="<?php echo ($activePage == 'activity') ? 'active' : ''; ?>">Activity Log</a>
-            <a href="usermanagement.php" class="<?php echo ($activePage == 'users') ? 'active' : ''; ?>">User Management</a>
+            <a href="documentarchive.php" class="<?php echo ($activePage == 'archive') ? 'active' : ''; ?>">
+                <span class="material-symbols-outlined">folder_open</span>
+                <span>Document Archive</span>
+            </a>
+            <a href="activitylog.php" class="<?php echo ($activePage == 'activity') ? 'active' : ''; ?>">
+                <span class="material-symbols-outlined">history</span>
+                <span>Activity Log</span>
+            </a>
+            <a href="usermanagement.php" class="<?php echo ($activePage == 'users') ? 'active' : ''; ?>">
+                <span class="material-symbols-outlined">manage_accounts</span>
+                <span>User Management</span>
+            </a>
         </nav>
     </div>
     <a href="userprofile.php" class="profile-area">

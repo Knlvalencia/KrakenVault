@@ -34,5 +34,17 @@ class Account {
         }
         return false;
     }
+
+    public function verifyAccountByStudentId($studentId, $password) {
+        $stmt = $this->db->prepare("SELECT a.Password, o.OfficerID FROM Account a JOIN Officers o ON a.OfficerID = o.OfficerID WHERE o.StudentID = :student_id");
+        $stmt->execute(['student_id' => $studentId]);
+        $row = $stmt->fetch();
+        if ($row) {
+            if (password_verify($password, $row['password'])) {
+                return $row['officerid']; // Return the OfficerID upon success
+            }
+        }
+        return false;
+    }
 }
 ?>
