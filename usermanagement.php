@@ -1,4 +1,8 @@
 <?php 
+    require_once __DIR__ . '/classes/Officer.php';
+    $officerModel = new Officer();
+    $officers = $officerModel->getAllOfficers();
+
     $pageTitle = 'User Management'; 
     $activePage = 'users'; 
 ?>
@@ -193,9 +197,31 @@
             </thead>
 
             <tbody id="tBody">
+                <?php if (empty($officers)): ?>
                 <tr class="empty-row" id="emptyRow">
                     <td colspan="5" style="color: #c872b5; text-align: center;"> <strong> NO ENTRIES YET! </strong></td>
                 </tr>
+                <?php else: ?>
+                    <?php foreach ($officers as $officer): ?>
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 32px; height: 32px; border-radius: 50%; background: #4b2c6e; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                    <?= substr(htmlspecialchars($officer['firstname']), 0, 1) ?>
+                                </div>
+                                <?= htmlspecialchars($officer['firstname'] . ' ' . $officer['lastname']) ?>
+                            </div>
+                        </td>
+                        <td><?= htmlspecialchars($officer['termyear'] ?? 'N/A') ?></td>
+                        <td><?= htmlspecialchars($officer['position'] ?? 'N/A') ?></td>
+                        <td><span class="status-badge status-active">Active</span></td>
+                        <td style="text-align: center;">
+                            <button class="action-button edit-btn" style="padding: 4px 8px; font-size: 12px; margin-right: 5px;" data-id="<?= $officer['officerid'] ?>">Edit</button>
+                            <button class="action-button delete-btn" style="padding: 4px 8px; font-size: 12px; background: #dc3545; color: white; border: none;" data-id="<?= $officer['officerid'] ?>">Delete</button>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
         <!-- MAIN TABLE END -->

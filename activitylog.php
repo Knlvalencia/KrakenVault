@@ -1,4 +1,8 @@
 <?php 
+require_once __DIR__ . '/classes/AuditLog.php';
+$auditModel = new AuditLog();
+$logs = $auditModel->getAllLogs();
+
 $pageTitle = 'Activity Log'; 
 $activePage = 'activity'; 
 ?>
@@ -56,79 +60,37 @@ $activePage = 'activity';
                 </tr>
             </thead>
             <tbody>
+                <?php if (empty($logs)): ?>
                 <tr>
-                    <td data-label="Date and Time">03/31/2026, 4:00AM</td>
-                    <td data-label="Account"> 
-                        <div class="td-content">
-                            <a href="#" class="primary-text link">John CIC</a>
-                            <span class="secondary-text">2025-0001</span>
-                        </div>
-                    </td>
-                    <td data-label="User">
-                        <div class="td-content">
-                            <strong class="primary-text">Tony Stark</strong>
-                            <span class="secondary-text">tstark@yourcompany.com</span>
-                        </div>
-                    </td>
-                    <td data-label="Activity ID">
-                        <span class="primary-text" style="font-family: monospace;">2026-041701ABCD</span>
-                    </td>
-                    <td data-label="Actions">
-                        <div class="td-content">
-                            <span>Downloaded <a href="#" class="file-link">name_of_file.pdf</a></span>
-                        </div>
-                    </td>
+                    <td colspan="5" style="text-align: center; color: #666;"><strong>NO ACTIVITIES YET!</strong></td>
                 </tr>
-
-                <tr>
-                    <td data-label="Date and Time">03/31/2026, 5:00AM</td>
-                    <td data-label="Account"> 
-                        <div class="td-content">
-                            <a href="#" class="primary-text link">John USeP</a>
-                            <span class="secondary-text">2025-0002</span>
-                        </div>
-                    </td>
-                    <td data-label="User">
-                        <div class="td-content">
-                            <strong class="primary-text">Mark Aslom</strong>
-                            <span class="secondary-text">maslom@yourcompany.com</span>
-                        </div>
-                    </td>
-                    <td data-label="Activity ID">
-                        <span class="primary-text" style="font-family: monospace;">2026-041702XYZA</span>
-                    </td>
-                    <td data-label="Actions">
-                        <div class="td-content">
-                            <span>Downloaded <a href="#" class="file-link">name_of_file.pdf</a></span>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td data-label="Date and Time">04/08/2026, 11:30AM</td>
-                    <td data-label="Account"> 
-                        <div class="td-content">
-                            <a href="#" class="primary-text link">John CIC</a>
-                            <span class="secondary-text">2025-0001</span>
-                        </div>
-                    </td>
-                    <td data-label="User">
-                        <div class="td-content">
-                            <strong class="primary-text">Tony Stark</strong>
-                            <span class="secondary-text">tstark@yourcompany.com</span>
-                        </div>
-                    </td>
-                    <td data-label="Activity ID">
-                        <span class="primary-text" style="font-family: monospace;">2026-040811TRQE</span>
-                    </td>
-                    <td data-label="Actions">
-                        <div class="td-content">
-                            <span>Uploaded <a href="#" class="file-link">name_of_file.pdf</a></span>
-                        </div>
-                    </td>
-                </tr>
-
-                </tbody>
+                <?php else: ?>
+                    <?php foreach ($logs as $log): ?>
+                    <tr>
+                        <td data-label="Date and Time"><?= htmlspecialchars($log['activitydate'] . ' ' . $log['activitytime']) ?></td>
+                        <td data-label="Account"> 
+                            <div class="td-content">
+                                <a href="#" class="primary-text link"><?= htmlspecialchars($log['firstname'] . ' ' . $log['lastname']) ?></a>
+                                <span class="secondary-text">User ID: <?= htmlspecialchars($log['officerid']) ?></span>
+                            </div>
+                        </td>
+                        <td data-label="User">
+                            <div class="td-content">
+                                <strong class="primary-text"><?= htmlspecialchars($log['firstname'] . ' ' . $log['lastname']) ?></strong>
+                            </div>
+                        </td>
+                        <td data-label="Activity ID">
+                            <span class="primary-text" style="font-family: monospace;"><?= htmlspecialchars($log['activityid']) ?></span>
+                        </td>
+                        <td data-label="Actions">
+                            <div class="td-content">
+                                <span><?= htmlspecialchars($log['activity']) ?></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
         </table>
         <div class="bottom-bar">
             <div class="display-controls">
