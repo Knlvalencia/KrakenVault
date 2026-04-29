@@ -203,7 +203,19 @@
                 </tr>
                 <?php else: ?>
                     <?php foreach ($officers as $officer): ?>
-                    <tr>
+                    <tr data-id="<?= $officer['officerid'] ?>" data-info="<?= htmlspecialchars(json_encode([
+                        'fullName' => $officer['firstname'] . ' ' . $officer['lastname'],
+                        'studentId' => '', 
+                        'age' => $officer['age'],
+                        'contact' => $officer['contactnumber'],
+                        'course' => $officer['course'],
+                        'yearLevel' => $officer['yearlevel'],
+                        'position' => $officer['position'],
+                        'termYear' => $officer['termyear'],
+                        'dateAssumed' => $officer['dateassumed'],
+                        'accessLevel' => $officer['accesslevel'],
+                        'status' => 'active'
+                    ])) ?>">
                         <td>
                             <div style="display: flex; align-items: center; gap: 10px;">
                                 <div style="width: 32px; height: 32px; border-radius: 50%; background: #4b2c6e; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
