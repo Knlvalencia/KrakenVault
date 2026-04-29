@@ -80,17 +80,45 @@ $activePage = 'profile';
     <!-- USER PROFILE START -->
     <main class="profile-content">
         <section class="profile-container">
-            <img src="pfp.png" alt="pfp large" class="profile-pic-large">
-            <div class="user-details">
-                <h1>Harah Castedana</h1>
-                <p><strong>Student ID:</strong> 2026-00123</p>
-                <p><strong>Email:</strong> hcastedana@usep.edu.ph</p>
-                <p><strong>Year Level:</strong> 3rd Year</p>
-                <p><strong>Course:</strong> BSIT-IS</p>
-                <p><strong>Term:</strong> 2025 - 2026</p>
-                <span class="badge">Governor</span>
+    <div class="profile-pic-wrapper">
+        <img src="pfp.png" alt="pfp large" class="profile-pic-large" id="currentPfp">
+        <button class="edit-pfp-btn" title="Change Profile Picture">
+            <i>📷</i> </button>
+    </div>
+    <div class="user-details">
+        <h1>Harah Castedana</h1>
+        <p><strong>Student ID:</strong> 2026-00123</p>
+        <p><strong>Email:</strong> hcastedana@usep.edu.ph</p>
+        <p><strong>Year Level:</strong> 3rd Year</p>
+        <p><strong>Course:</strong> BSIT-IS</p>
+        <p><strong>Term:</strong> 2025 - 2026</p>
+        <span class="badge">Governor</span>
+        </div>
+</section>
+
+<div id="pfpModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Update Profile Picture</h2>
+            <button class="close-modal">&times;</button>
+        </div>
+        <form id="pfpForm">
+            <div class="pfp-upload-container">
+                <div class="pfp-preview" id="imagePreview">
+                    <span>No file selected</span>
+                </div>
+                <div class="form-group">
+                    <label for="pfpInput">Choose Image</label>
+                    <input type="file" id="pfpInput" accept="image/*" required>
+                </div>
             </div>
-        </section>
+            <div class="modal-footer">
+                <button type="button" class="btn-delete close-modal">Cancel</button>
+                <button type="submit" class="btn-upload">Save Changes</button>
+            </div>
+        </form>
+    </div>
+    </div>
         <!-- USER PROFILE END -->
 
         <!-- COMMITEE PORTION START -->
@@ -111,16 +139,28 @@ $activePage = 'profile';
                         <td data-label="Student ID">2025-0001</td>
                         <td data-label="Email">tedwald@usep.edu.ph</td>
                         <td class="actions-cell" data-label="Actions">
-                            <button class="action-button">•••</button>
-                        </td>
+                        <div class="actions-menu">
+                            <button class="dots-btn">•••</button> 
+                            <div class="dropdown-action">
+                                <button type="button" class="edit-btn">Edit Member</button>
+                                <button type="button" class="delete-btn">Delete Member</button>
+                            </div>
+                        </div>
+                    </td>
                     </tr>
                     <tr>
                         <td data-label="Student Name">Kylie Valence</td>
                         <td data-label="Student ID">2025-0002</td>
                         <td data-label="Email">kvalence@usep.edu.ph</td>
                         <td class="actions-cell" data-label="Actions">
-                            <button class="action-button">•••</button>
-                        </td>
+                        <div class="actions-menu">
+                            <button class="dots-btn">•••</button> 
+                            <div class="dropdown-action">
+                                <button type="button" class="edit-btn">Edit Member</button>
+                                <button type="button" class="delete-btn">Delete Member</button>
+                            </div>
+                        </div>
+                    </td>
                     </tr>
                 </tbody>
             </table>

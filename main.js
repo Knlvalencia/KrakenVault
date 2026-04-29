@@ -21,23 +21,21 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // =========================================
-// USER PROFILE: ADD COMMITTEE MODAL
+// USER PROFILE: ADD COMMITTEE MODAL & ACTIONS
 // =========================================
 document.addEventListener('DOMContentLoaded', () => {
     const committeeModal = document.getElementById('addCommitteeModal');
     const addCommitteeBtn = document.querySelector('.add-committee-btn');
     const committeeCloseBtns = document.querySelectorAll('#addCommitteeModal .close-modal');
+    const committeeTable = document.querySelector('.file-table');
 
-    // Only attach event listeners if the Add Committee button exists on this page
+    // 1. OPEN/CLOSE MODAL LOGIC
     if (addCommitteeBtn && committeeModal) {
-        
-        // Open Modal
         addCommitteeBtn.onclick = (e) => {
             e.preventDefault(); 
             committeeModal.style.display = 'flex';
         };
 
-        // Close Modal 
         committeeCloseBtns.forEach(btn => {
             btn.onclick = (e) => {
                 e.preventDefault();
@@ -45,10 +43,77 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         });
 
-        // Close on outside click
         window.addEventListener('click', (e) => {
             if (e.target === committeeModal) {
                 committeeModal.style.display = 'none';
+            }
+        });
+    }
+
+    // 2. DROPDOWN ACTION LOGIC (The part you were unsure about)
+    // We attach this to the table so it works for rows you add later!
+    if (committeeTable) {
+        committeeTable.addEventListener('click', (e) => {
+            // This looks for the closest "•••" button that was clicked
+            const dotsBtn = e.target.closest('.dots-btn');
+            
+            if (dotsBtn) {
+                e.stopPropagation();
+                const parentMenu = dotsBtn.parentElement;
+                
+                // Close any other open menus so only one is visible at a time
+                document.querySelectorAll('.actions-menu.active').forEach(menu => {
+                    if (menu !== parentMenu) menu.classList.remove('active');
+                });
+
+                // Toggle the "active" class to show/hide the Edit/Delete pop-up
+                parentMenu.classList.toggle('active');
+            }
+        });
+    }
+});
+
+// =========================================
+// USER PROFILE: EDIT PROFILE PIC
+// =========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const pfpModal = document.getElementById('pfpModal');
+    const editPfpBtn = document.querySelector('.edit-pfp-btn');
+    const pfpInput = document.getElementById('pfpInput');
+    const imagePreview = document.getElementById('imagePreview');
+    const pfpCloseBtns = document.querySelectorAll('#pfpModal .close-modal');
+
+    if (editPfpBtn && pfpModal) {
+        // Open Modal
+        editPfpBtn.onclick = () => {
+            pfpModal.style.display = 'flex';
+        };
+
+        // Close Modal
+        pfpCloseBtns.forEach(btn => {
+            btn.onclick = () => {
+                pfpModal.style.display = 'none';
+                pfpInput.value = ''; // Reset input
+                imagePreview.innerHTML = '<span>No file selected</span>';
+            };
+        });
+
+        // Image Preview Logic
+        pfpInput.onchange = function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        // Handle Outside Click
+        window.addEventListener('click', (e) => {
+            if (e.target === pfpModal) {
+                pfpModal.style.display = 'none';
             }
         });
     }
