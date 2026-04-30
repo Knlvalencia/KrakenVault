@@ -83,11 +83,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const tbody = document.getElementById('tBody');
     const editRow = document.getElementById('editRow');
 
+    // Pagination
+    // const perPageValue = document.getElementById('perPageValue');
+    const perPageSelect = document.getElementById('perPageSelect');
+    // const perPageDropdown = document.querySelector('.per-page-dropdown');
+
     // Initialize for Dropdown
     let currentOpenDropdown = null;
 
     // Initialize for Delete Modal
     let currentDelete = null;
+
+    // Pagination Variables
+    let currentPage = 1;
+    let rowsPerPage = 5; // Default rows per page (Can be changed accordingly)
+    let allRows = [];
+    let currentDisplayRows = [];
 
     // --- METHODS ---
     // Open Modal 
@@ -104,9 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Open Delete Modal
-    function showDeleteModal(row, name) {
+    function showDeleteModal(row) {
         currentDelete = row;
-        deleteName.textContent = name;
+        const data = JSON.parse(row.getAttribute('data-info'));
+        deleteName.textContent = data.fullName;
         deleteModal.style.display = 'flex';
     }
 
@@ -143,6 +155,88 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td colspan="5" style="color: #c872b5; text-align: center;"> <strong> NO ENTRIES YET! </strong></td>
             </tr>`;
         }
+    }
+
+    // Update Display of Pagination
+    function updatePagination() {
+        const totalMembers = currentDisplayRows.length;
+        const totalPages = Math.ceil(totalMembers / rowsPerPage);
+
+        // Update "members of #"
+        document.getElementById('totalMembers').textContent = totalMembers;
+
+        // Update pagination buttons
+        const paginationContainer = document.querySelector('.pagination-controls');
+        paginationContainer.innerHTML = '';
+
+        // Previous Button
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'page-btn';
+        prevBtn.textContent = '<';
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.onclick = () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderCurrentPage();
+            }
+        };
+        paginationContainer.appendChild(prevBtn);
+
+        // Page Number Buttons
+        for (let i = 1; i <= totalPages; i++) {
+            const pageBtn = document.createElement('button');
+            pageBtn.className = 'page-btn';
+            if (i === currentPage) {pageBtn.classList.add('active');}
+            pageBtn.textContent = i;
+            pageBtn.onclick = () => {
+                currentPage = i;
+                renderCurrentPage();
+            };
+            paginationContainer.appendChild(pageBtn);
+        }
+
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'page-btn';
+        nextBtn.textContent = '>';
+        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.onclick = () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderCurrentPage();
+            }
+        };
+        paginationContainer.appendChild(nextBtn);
+    }
+
+    // Render Current Page
+    function renderCurrentPage() {
+        const totalMembers = currentDisplayRows.length;
+
+        if (totalMembers === 0) {
+            const allTableRows = Array.from(tbody.querySelectorAll('tr:not(.empty-row)'));
+            allTableRows.forEach(row => row.style.display = 'none');
+            updatePagination();
+            return;
+        }
+
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const rowsToShow = currentDisplayRows.slice(start, end);
+
+        // Initially hide the rows
+        const allTableRows = Array.from(tbody.querySelectorAll('tr:not(.empty-row)'));
+        allTableRows.forEach(row => row.style.display = 'none');
+
+        // Only show rows for each page
+        rowsToShow.forEach(row => row.style.display = '');
+
+        updatePagination();
+    }
+
+    function updateDisplay() {
+        currentDisplayRows = Array.from(tbody.querySelectorAll('tr:not(.empty-row)'));
+        currentPage = 1;
+        renderCurrentPage();
     }
 
     // Validate and get data (e.g., name, term year, roles)
@@ -204,6 +298,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const newRow = createRow(dataWithStatus); // must be changed to createRow(data) when removing 
         tbody.appendChild(newRow);
         updateEmptyPlaceholder();
+
+        updateDisplay();
     }
 
     // Update exisiting row
@@ -225,6 +321,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Added for randomized status
             const updatedData = {...data, status: existingData.status};
             row.setAttribute('data-info', JSON.stringify(updatedData)); // Must be changed to JSON.stringify(data);
+
+            updateDisplay();
         }
     }
 
@@ -279,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteBtn.onclick = (e) => {
             e.stopPropagation();
             const name = row.cells[0].textContent;
-            showDeleteModal(row, name);
+            showDeleteModal(row);
             menuDiv.classList.remove('active');
             menuDiv.classList.remove('dropup');
             if (currentOpenDropdown === menuDiv) {
@@ -354,13 +452,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Get all rows
         let rows = Array.from(tbody.querySelectorAll('tr:not(.empty-row)'));
 
-        // Only show visible rows
-        let visibleRows = [];
-
         rows.forEach(row => {
-            // Reset row first
-            row.style.display = '';
-
             const data = JSON.parse(row.getAttribute('data-info'));
             const statusSpan = row.querySelector('td:nth-child(4) span');
             const status = statusSpan ? statusSpan.textContent.toLowerCase() : '';
@@ -391,8 +483,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             row.style.display = showRow ? '' : 'none';
-            if (showRow) {visibleRows.push(row);}
         });
+
+        // Only show visible rows
+        let visibleRows = rows.filter(row => row.style.display !== 'none');
 
         // Sort Logic 
         visibleRows.sort((a, b) => {
@@ -416,8 +510,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         return nameWithNoPrefix.toLowerCase();
                     }
 
-                    valA = dataA.fullName.toLowerCase();
-                    valB = dataB.fullName.toLowerCase();
+                    valA = removePrefix(dataA.fullName);
+                    valB = removePrefix(dataB.fullName);
                     break;
                 case 'dateAssumed':
                     valA = new Date(dataA.dateAssumed);
@@ -438,6 +532,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         visibleRows.forEach(row => tbody.appendChild(row));
+        rows.filter(row => row.style.display === 'none').forEach(row => tbody.appendChild(row));
+
+        return visibleRows;
     }
 
     // --- EVENT LISTENERS --- 
@@ -514,6 +611,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (filterBtn) {
         filterBtn.addEventListener('click', () => {
             applyFilterAndSort();
+            currentDisplayRows = Array.from(tbody.querySelectorAll('tr:not(.empty-row)')).filter(row => row.style.display !== 'none');
+            currentPage = 1;
+            renderCurrentPage();
             filterWrapper.classList.remove('active');
         });
     }
@@ -557,6 +657,14 @@ document.addEventListener('DOMContentLoaded', () => {
             currentOpenDropdown = null;
         }
     });
+
+    if (perPageSelect) {
+        perPageSelect.addEventListener('change' , (e) => {
+            rowsPerPage = parseInt(e.target.value);
+            currentPage = 1;
+            renderCurrentPage();
+        });
+    }
 
     // AUTOMATE TEST - Comment the loop to disable
     function autoTestAddOfficer() {
@@ -620,10 +728,15 @@ document.addEventListener('DOMContentLoaded', () => {
         form.dispatchEvent(new Event('submit')); 
     }
 
-    // Comment this to disable automate test
-    for (var i = 0; i < 50; i++) {
-        autoTestAddOfficer();
+    async function runAutoTest() {
+        for (var i = 0; i < 57; i++) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            autoTestAddOfficer();
+        }
     }
+
+    // Comment this to disable automate test
+    runAutoTest();
 });
 
 // =========================================

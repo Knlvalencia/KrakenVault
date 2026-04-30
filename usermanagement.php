@@ -109,6 +109,16 @@
             <h1>User Management</h1>
             <div class="user-search-group">
 
+                <!-- SEARCH BAR -->
+                <div class="search-wrapper">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" class="search-input with-icon" placeholder="Search by username or id">
+                </div>
+                <!-- END OF SEARCH BAR -->
+
                 <!-- FILTER DROPDOWN MODAL START-->
                 <div class="filter-wrapper">
                     <button class="action-button sort-btn"><span class="sort-icon">⇅</span> Sort & Filter</button>
@@ -168,14 +178,7 @@
                 </div>
                 </div>
                 <!-- END FILTER DROPDOWN MODAL -->
-
-                <div class="search-wrapper">
-                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                    <input type="text" class="search-input with-icon" placeholder="Search by username or id">
-                </div>
+                <button class="action-button new-officer-btn">+ Add New Officer</button>
             </div>
         </div>
         <!-- TITLE AREA END -->
@@ -202,23 +205,28 @@
 
         <!-- CONTROL BAR START -->
         <div class="bottom-bar">
+
             <div class="display-controls">
                 <span>Showing</span>
-                <select class="row-select">
-                    <option value="9">9</option>
-                    <option value="10" selected>10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
+                <select id="perPageSelect" class="per-page-select">
+                    <option value="5"> 5 </option>
+                    <option value="10"> 10 </option>
+                    <option value="20"> 20 </option>
+                    <option value="50"> 50 </option>
                 </select>
-                <span>members of 50</span>
+                <span> of </span>
+                <span id="totalMembers"> 0 </span>
+                <span> members </span>
             </div>
+
+            <!-- PAGINATION START -->
             <div class="pagination-controls">
                 <button class="page-btn">&lt;</button>
-                <button class="page-btn active">1</button>
+                <button class="page-btn">1</button>
                 <button class="page-btn">2</button>
                 <button class="page-btn">&gt;</button>
             </div>
-            <button class="action-button new-officer-btn">+ Add New Officer</button>
+            <!-- END OF PAGINATION -->
         </div>
         <!-- CONTROL BAR END -->
     </main>

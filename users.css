@@ -39,20 +39,10 @@
     gap: 12px;
 }
 
-/* safe to delete? class x-btn is not in usermanagement.php */
-.x-btn {
-    height: 40px; /* Matches the search bar height */
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-    background-color: #f8f9fa;
-    color: #202124;
-}
-
 /* Filter & Sort Dropdown */
 .sort-btn {
     position: relative;
+    height: 40px;
 }
 
 .filter-wrapper {
@@ -172,6 +162,7 @@
     display: flex;
     align-items: center;
     width: 280px; 
+    margin-left: 10px;
 }
 
 .search-icon {
@@ -188,7 +179,6 @@
     width: 100%;
     height: 40px; 
     padding: 10px 16px 10px 38px; 
-    /* border: 1px solid #ddd; */
     font-size: 14px;
     transition: background-color 0.2s, border 0.2s;
     box-sizing: border-box; 
@@ -398,7 +388,7 @@ tr:has(.actions-menu.active) {
 .display-controls {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     font-size: 14px;
     color: #5f6368;
 }
@@ -422,37 +412,46 @@ tr:has(.actions-menu.active) {
 
 .page-btn {
     background: #fff;
-    border: 1px solid #ddd;
+    border: 1px solid #49154a;
     border-radius: 4px;
     cursor: pointer;
-    color: #5f6368;
+    color: #49154a;
     font-size: 14px;
+    font-weight: 500;
     padding: 6px 12px;
-    transition: all 0.2s;
-}
-
-.page-btn:hover {
-    background-color: #f1f3f4;
-    color: #202124;
-}
-
-.page-btn.active {
-    background-color: #e8f0fe;
-    color: #1a73e8;
-    border-color: #1a73e8;
-    font-weight: bold;
-}
-
-.new-officer-btn {
-    background-color: #fff; 
-    color: #3c4043; 
-    border: 1px solid #ddd; 
+    /*min-width: 36px;*/
     transition: all 0.2s ease;
 }
 
+.page-btn:hover {
+    background-color: #f3e5f4;
+    color: #49154a;
+    border-color: #49154a; 
+}
+
+.page-btn.active {
+    background-color: #49154a;
+    color: #fff;
+    border-color: #49154a;
+}
+
+.page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #f8f9fa;
+    color: #999;
+    border-color: #ddd;
+}
+.new-officer-btn {
+    background-color: #49154a; 
+    color: white; 
+    border: 1px solid #ddd; 
+    transition: all 0.2s ease;
+    height: 40px;
+}
+
 .new-officer-btn:hover {
-    background-color: #f1f3f4; 
-    color: #202124;
+    background-color: #3b113c;
     border-color: #ccc;
 }
 
@@ -602,27 +601,39 @@ tr:has(.actions-menu.active) {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
     justify-content: center;
     align-items: center;
 }
 
 .delete-modal-content {
     background-color: #fff;
-    padding: 24px;
+    padding: 20px;
     border-radius: 12px;
-    width: 320px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+    width: 400px;
     max-width: 90%;
+    animation: modalSlideIn 0.3s ease;
     text-align: center;
 }
 
 .delete-modal-content h3 {
-    margin: 0px 0px 12px 0px;
+    margin: 0px 0px 16px 0px;
+    font-size: 20px;
     color: #202124;
+    font-weight: 600;
 }
 
 .delete-modal-content p {
-    margin: 0px 0px 20px 0px;
+    margin: 0px 0px 24px 0px;
+    font-size: 14px;
     color: #5f6368;
+    line-height: 1.5;
+}
+
+.delete-modal-content strong {
+    color: #b266a1;
+    font-weight: 600;
 }
 
 .delete-modal-actions {
@@ -632,29 +643,61 @@ tr:has(.actions-menu.active) {
 }
 
 .delete-modal-actions button {
-    padding: 8px 20px;
+    padding: 10px 24px;
     border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
-    border: none;
+    transition: all 0.2s ease;
 }
 
 .delete-modal-actions .btn-delete {
     background-color: #fff;
+    color: #3c4043;
     border: 1px solid #ddd;
 }
 
-.delete-modal-actions .btn-confirm {
-    background-color: #d93025;
-    color: #fff;
+.delete-modal-actions .btn-delete:hover {
+    background-color: #f1f3f4;
+    border-color: #ccc;
 }
 
-.delete-modal-actions .btn-confirm:hover {background-color: #c5221f;}
+.delete-modal-actions .btn-confirm {
+    background-color: #49154a;
+    color: white;
+    border: none;
+}
+
+.delete-modal-actions .btn-confirm:hover {background-color: #3b113c;}
 
 @keyframes modalSlideIn {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+.per-page-select {
+    background-color: #f1f3f4;
+    border: 1px solid #49154a;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    color: #49154a;
+    transition: all 0.2s ease;
+    /*height: 38px;*/
+}
+
+.per-page-select:hover {
+    background-color: #e8e8e8;
+    border-color: #49154a;
+}
+
+.per-page-select:focus {
+    outline: none;
+    border-color: #3b113c;
+    /*box-shadow: 0 0 0 2px rgba(73, 21, 74, 0.2); */
 }
 
 @media (max-width: 600px) {.form-grid { grid-template-columns: 1fr; }}
@@ -678,13 +721,30 @@ tr:has(.actions-menu.active) {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap; /* Allows wrapping on small screens */
-        align-items: center;
+        align-items: stretch;
         gap: 12px;
     }
 
     .search-wrapper {
+        margin-top: 10px;
+        margin-left: 0px;
+        flex: 0 0 100%;
+        width: 100% !important;
+        order: 1;
+    }
+
+    .filter-wrapper {
         flex: 1;
-        min-width: 180px;
+        order: 2;
+    }
+
+    .filter-wrapper .sort-btn {width: 100%;}
+
+    .new-officer-btn {
+        flex: 1;
+        order: 3;
+        margin-left: 0px;
+        width: 100%;
     }
 
     .search-input.with-icon {width: 100%;}
@@ -856,23 +916,30 @@ tr:has(.actions-menu.active) {
         width: 100%;
     }
 
+    .pagination-controls {
+        gap: 6px;
+    }
+
+    .page-btn {
+        padding: 8px 14px;
+        font-size: 14px;
+    }
+
+    .per-page-select {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    .display-controls {
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .display-controls span {font-size: 14px;}
+
     .display-controls, .pagination-controls {
         justify-content: center;
         width: 100%;
         flex-wrap: wrap;
-    }
-
-    .new-officer-btn {
-        height: 40px; 
-        width: 100%;
-        order: 1;
-    }
-
-    .display-controls {
-        order: 3;
-    }
-
-    .pagination-controls {
-        order: 2;
     }
 }
